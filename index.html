@@ -1,966 +1,876 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Projeto Kaizen | TJBot Medical Assistant</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-black: #06040c;
-            --bg-surface: rgba(18, 12, 34, 0.75);
-            --bg-surface-hover: rgba(30, 20, 55, 0.85);
-            --purple-neon: #a855f7;
-            --purple-bright: #c084fc;
-            --purple-dark: #581c87;
-            --purple-glow: rgba(168, 85, 247, 0.35);
-            --border-purple: rgba(168, 85, 247, 0.25);
-            --text-white: #f8fafc;
-            --text-gray: #a1a1aa;
-            --font-tech: 'Orbitron', sans-serif;
-            --font-sub: 'Rajdhani', sans-serif;
-            --font-body: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-black);
-            color: var(--text-gray);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 50% -10%, rgba(168, 85, 247, 0.25), transparent 60%),
-                radial-gradient(circle at 80% 60%, rgba(107, 33, 168, 0.15), transparent 50%);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1140px;
-            margin: 0 auto;
-        }
-
-        /* Header Curvo Glassmorphism */
-        header {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1140px;
-            background: rgba(10, 6, 20, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-purple);
-            border-radius: 50px;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--purple-glow);
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-            padding: 0 10px;
-        }
-
-        .logo {
-            font-family: var(--font-tech);
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--text-white);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            padding-left: 15px;
-        }
-
-        .logo span {
-            color: var(--purple-neon);
-            text-shadow: 0 0 10px var(--purple-glow);
-        }
-
-        nav ul {
-            display: flex;
-            gap: 24px;
-            list-style: none;
-            padding-right: 15px;
-        }
-
-        nav a {
-            font-family: var(--font-sub);
-            color: var(--text-white);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--purple-bright);
-            text-shadow: 0 0 10px var(--purple-glow);
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-white);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding-right: 15px;
-        }
-
-        /* Hero Médica */
-        .hero {
-            padding: 210px 0 80px;
-            text-align: center;
-        }
-
-        .slogan-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-family: var(--font-sub);
-            font-size: 0.95rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--purple-bright);
-            background: rgba(168, 85, 247, 0.12);
-            border: 1px solid var(--purple-neon);
-            padding: 10px 24px;
-            border-radius: 50px;
-            margin-bottom: 24px;
-            box-shadow: 0 0 20px var(--purple-glow);
-        }
-
-        .hero h1 {
-            font-family: var(--font-tech);
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--text-white);
-            text-transform: uppercase;
-            line-height: 1.2;
-            letter-spacing: 1px;
-            max-width: 950px;
-            margin: 0 auto 20px;
-        }
-
-        .hero h1 span {
-            color: var(--purple-neon);
-            text-shadow: 0 0 25px var(--purple-glow);
-        }
-
-        .hero-slogan-sub {
-            font-family: var(--font-sub);
-            font-size: 1.3rem;
-            color: var(--purple-bright);
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-gray);
-            max-width: 850px;
-            margin: 0 auto 38px;
-            line-height: 1.8;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--purple-neon), var(--purple-dark));
-            color: var(--text-white);
-            padding: 16px 36px;
-            font-family: var(--font-sub);
-            font-weight: 700;
-            font-size: 1.05rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px var(--purple-glow);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(168, 85, 247, 0.6);
-            background: linear-gradient(135deg, var(--purple-bright), var(--purple-neon));
-        }
-
-        /* Seções Genericas */
-        section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            font-family: var(--font-tech);
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: var(--text-white);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .section-title span {
-            color: var(--purple-neon);
-            text-shadow: 0 0 15px var(--purple-glow);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            max-width: 750px;
-            margin: 0 auto 40px;
-            font-size: 1.05rem;
-        }
-
-        /* Grid de Soluções Médicas */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .feature-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-purple);
-            border-radius: 24px;
-            padding: 30px;
-            backdrop-filter: blur(15px);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--purple-bright);
-            box-shadow: 0 15px 35px var(--purple-glow);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(168, 85, 247, 0.15);
-            border: 1px solid var(--purple-neon);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: var(--purple-bright);
-            margin-bottom: 20px;
-            box-shadow: 0 0 15px var(--purple-glow);
-        }
-
-        .feature-card h3 {
-            font-family: var(--font-tech);
-            font-size: 1.3rem;
-            color: var(--text-white);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
-        .feature-card p {
-            font-size: 0.95rem;
-            color: var(--text-gray);
-            line-height: 1.7;
-        }
-
-        /* Simulador Interativo do TJBot */
-        .simulator-box {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-purple);
-            border-radius: 28px;
-            padding: 40px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--purple-glow);
-        }
-
-        .mode-tabs {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 35px;
-        }
-
-        .mode-btn {
-            background: rgba(6, 4, 12, 0.6);
-            border: 1px solid var(--border-purple);
-            padding: 14px 24px;
-            font-family: var(--font-sub);
-            font-size: 0.95rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-white);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .mode-btn i {
-            color: var(--purple-neon);
-        }
-
-        .mode-btn.active {
-            background: linear-gradient(135deg, var(--purple-neon), var(--purple-dark));
-            border-color: var(--purple-bright);
-            box-shadow: 0 8px 20px var(--purple-glow);
-        }
-
-        .mode-btn.active i {
-            color: var(--text-white);
-        }
-
-        .sim-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 35px;
-            align-items: center;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .sim-info h3 {
-            font-family: var(--font-tech);
-            font-size: 1.6rem;
-            color: var(--text-white);
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .sim-info h3 i {
-            color: var(--purple-neon);
-        }
-
-        .sim-info p {
-            font-size: 1.05rem;
-            color: var(--text-gray);
-            margin-bottom: 24px;
-            line-height: 1.8;
-        }
-
-        .sim-benefits {
-            list-style: none;
-            display: grid;
-            gap: 12px;
-        }
-
-        .sim-benefits li {
-            background: rgba(168, 85, 247, 0.06);
-            border: 1px solid var(--border-purple);
-            border-radius: 14px;
-            padding: 14px 18px;
-            font-size: 0.95rem;
-            color: var(--text-white);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .sim-benefits li i {
-            color: var(--purple-bright);
-        }
-
-        /* Graphic TJBot */
-        .robot-card-graphic {
-            background: rgba(6, 4, 12, 0.8);
-            border: 2px dashed var(--purple-neon);
-            border-radius: 24px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: inset 0 0 25px var(--purple-glow);
-            position: relative;
-        }
-
-        .robot-avatar {
-            font-size: 5.5rem;
-            color: var(--purple-bright);
-            filter: drop-shadow(0 0 20px var(--purple-neon));
-            animation: floatRobot 3.5s ease-in-out infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes floatRobot {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .robot-status-pill {
-            background: linear-gradient(135deg, var(--purple-neon), var(--purple-dark));
-            color: var(--text-white);
-            font-family: var(--font-tech);
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 6px 18px;
-            border-radius: 50px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            box-shadow: 0 5px 15px var(--purple-glow);
-            margin-bottom: 20px;
-        }
-
-        .robot-telemetry {
-            width: 100%;
-            font-family: var(--font-sub);
-            font-size: 0.95rem;
-            color: var(--text-white);
-            border-top: 1px dashed var(--border-purple);
-            padding-top: 16px;
-        }
-
-        .robot-telemetry div {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-
-        .robot-telemetry span.val {
-            color: var(--purple-bright);
-            font-weight: 700;
-        }
-
-        /* Formulário de Novas Funcionalidades */
-        .custom-request-box {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-purple);
-            border-radius: 28px;
-            padding: 45px;
-            margin-top: 60px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        }
-
-        .custom-request-box h3 {
-            font-family: var(--font-tech);
-            font-size: 1.5rem;
-            color: var(--text-white);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .custom-request-box h3 i {
-            color: var(--purple-neon);
-        }
-
-        .custom-request-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .custom-request-form .full-width {
-            grid-column: span 2;
-        }
-
-        .form-group label {
-            display: block;
-            font-family: var(--font-sub);
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-white);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            background: rgba(6, 4, 12, 0.8);
-            border: 1px solid var(--border-purple);
-            border-radius: 14px;
-            padding: 16px 20px;
-            color: var(--text-white);
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--purple-neon);
-            box-shadow: 0 0 20px var(--purple-glow);
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, var(--purple-neon), var(--purple-dark));
-            color: var(--text-white);
-            border: none;
-            padding: 16px 36px;
-            font-family: var(--font-sub);
-            font-weight: 700;
-            font-size: 1.05rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px var(--purple-glow);
-        }
-
-        .submit-btn:hover {
-            background: linear-gradient(135deg, var(--purple-bright), var(--purple-neon));
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(168, 85, 247, 0.6);
-        }
-
-        /* Contato */
-        .contact-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .contact-link {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-purple);
-            border-radius: 20px;
-            padding: 24px;
-            text-align: center;
-            color: var(--text-white);
-            text-decoration: none;
-            font-family: var(--font-sub);
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .contact-link i {
-            color: var(--purple-neon);
-            font-size: 1.4rem;
-        }
-
-        .contact-link:hover {
-            background: var(--purple-neon);
-            border-color: var(--purple-bright);
-            box-shadow: 0 10px 30px var(--purple-glow);
-            transform: translateY(-3px);
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            border-top: 1px solid var(--border-purple);
-            font-family: var(--font-tech);
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-gray);
-            text-align: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .sim-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .custom-request-form {
-                grid-template-columns: 1fr;
-            }
-
-            .custom-request-form .full-width {
-                grid-column: span 1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                border-radius: 25px;
-                top: 10px;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            nav {
-                display: none;
-                position: absolute;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background: rgba(6, 4, 12, 0.95);
-                border: 1px solid var(--border-purple);
-                border-radius: 20px;
-                padding: 24px 0;
-            }
-
-            nav.active {
-                display: block;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }
-
-            .custom-request-box, .simulator-box {
-                padding: 25px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projeto Kaizen | TJBot Medical Assistant</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --bg-black: #06040c;
+  --bg-surface: rgba(18, 12, 34, 0.75);
+  --bg-surface-hover: rgba(30, 20, 55, 0.85);
+  --purple-neon: #a855f7;
+  --purple-bright: #c084fc;
+  --purple-dark: #581c87;
+  --purple-glow: rgba(168, 85, 247, 0.35);
+  --border-purple: rgba(168, 85, 247, 0.25);
+  --text-white: #f8fafc;
+  --text-gray: #a1a1aa;
+  --font-tech: 'Orbitron', sans-serif;
+  --font-sub: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+body {
+  background-color: var(--bg-black);
+  color: var(--text-gray);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle at 50% -10%, rgba(168, 85, 247, 0.25), transparent 60%),
+    radial-gradient(circle at 80% 60%, rgba(107, 33, 168, 0.15), transparent 50%);
+}
+.container {
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+/* Header Curvo Glassmorphism */
+header {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1140px;
+  background: rgba(10, 6, 20, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-purple);
+  border-radius: 50px;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--purple-glow);
+}
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  padding: 0 10px;
+}
+.logo {
+  font-family: var(--font-tech);
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--text-white);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-decoration: none;
+  padding-left: 15px;
+}
+.logo span {
+  color: var(--purple-neon);
+  text-shadow: 0 0 10px var(--purple-glow);
+}
+nav ul {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  padding-right: 15px;
+}
+nav a {
+  font-family: var(--font-sub);
+  color: var(--text-white);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+nav a:hover {
+  color: var(--purple-bright);
+  text-shadow: 0 0 10px var(--purple-glow);
+}
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding-right: 15px;
+}
+/* Hero Médica */
+.hero {
+  padding: 210px 0 80px;
+  text-align: center;
+}
+.slogan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sub);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--purple-bright);
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid var(--purple-neon);
+  padding: 10px 24px;
+  border-radius: 50px;
+  margin-bottom: 24px;
+  box-shadow: 0 0 20px var(--purple-glow);
+}
+.hero h1 {
+  font-family: var(--font-tech);
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--text-white);
+  text-transform: uppercase;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  max-width: 950px;
+  margin: 0 auto 20px;
+}
+.hero h1 span {
+  color: var(--purple-neon);
+  text-shadow: 0 0 25px var(--purple-glow);
+}
+.hero-slogan-sub {
+  font-family: var(--font-sub);
+  font-size: 1.3rem;
+  color: var(--purple-bright);
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-gray);
+  max-width: 850px;
+  margin: 0 auto 38px;
+  line-height: 1.8;
+}
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--purple-neon), var(--purple-dark));
+  color: var(--text-white);
+  padding: 16px 36px;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px var(--purple-glow);
+}
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(168, 85, 247, 0.6);
+  background: linear-gradient(135deg, var(--purple-bright), var(--purple-neon));
+}
+/* Seções Genéricas */
+section {
+  padding: 80px 0;
+}
+.section-title {
+  font-family: var(--font-tech);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--text-white);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.section-title span {
+  color: var(--purple-neon);
+  text-shadow: 0 0 15px var(--purple-glow);
+}
+.section-subtitle {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 40px;
+  font-size: 1.05rem;
+}
+/* Grid de Soluções Médicas */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+.feature-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-purple);
+  border-radius: 24px;
+  padding: 30px;
+  backdrop-filter: blur(15px);
+  transition: all 0.3s ease;
+  position: relative;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--purple-bright);
+  box-shadow: 0 15px 35px var(--purple-glow);
+}
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid var(--purple-neon);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--purple-bright);
+  margin-bottom: 20px;
+  box-shadow: 0 0 15px var(--purple-glow);
+}
+.feature-card h3 {
+  font-family: var(--font-tech);
+  font-size: 1.3rem;
+  color: var(--text-white);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.feature-card p {
+  font-size: 0.95rem;
+  color: var(--text-gray);
+  line-height: 1.7;
+}
+/* Simulador Interativo do TJBot */
+.simulator-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-purple);
+  border-radius: 28px;
+  padding: 40px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--purple-glow);
+}
+.mode-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 35px;
+}
+.mode-btn {
+  background: rgba(6, 4, 12, 0.6);
+  border: 1px solid var(--border-purple);
+  padding: 14px 24px;
+  font-family: var(--font-sub);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-white);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+.mode-btn i {
+  color: var(--purple-neon);
+}
+.mode-btn.active {
+  background: linear-gradient(135deg, var(--purple-neon), var(--purple-dark));
+  border-color: var(--purple-bright);
+  box-shadow: 0 8px 20px var(--purple-glow);
+}
+.mode-btn.active i {
+  color: var(--text-white);
+}
+.sim-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 35px;
+  align-items: center;
+  animation: fadeIn 0.4s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.sim-info h3 {
+  font-family: var(--font-tech);
+  font-size: 1.6rem;
+  color: var(--text-white);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sim-info h3 i {
+  color: var(--purple-neon);
+}
+.sim-info p {
+  font-size: 1.05rem;
+  color: var(--text-gray);
+  margin-bottom: 24px;
+  line-height: 1.8;
+}
+.sim-benefits {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+.sim-benefits li {
+  background: rgba(168, 85, 247, 0.06);
+  border: 1px solid var(--border-purple);
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 0.95rem;
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sim-benefits li i {
+  color: var(--purple-bright);
+}
+/* Graphic TJBot */
+.robot-card-graphic {
+  background: rgba(6, 4, 12, 0.8);
+  border: 2px dashed var(--purple-neon);
+  border-radius: 24px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 25px var(--purple-glow);
+  position: relative;
+}
+.robot-avatar {
+  font-size: 5.5rem;
+  color: var(--purple-bright);
+  filter: drop-shadow(0 0 20px var(--purple-neon));
+  animation: floatRobot 3.5s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+@keyframes floatRobot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.robot-status-pill {
+  background: linear-gradient(135deg, var(--purple-neon), var(--purple-dark));
+  color: var(--text-white);
+  font-family: var(--font-tech);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 6px 18px;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 5px 15px var(--purple-glow);
+  margin-bottom: 20px;
+}
+.robot-telemetry {
+  width: 100%;
+  font-family: var(--font-sub);
+  font-size: 0.95rem;
+  color: var(--text-white);
+  border-top: 1px dashed var(--border-purple);
+  padding-top: 16px;
+}
+.robot-telemetry div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.robot-telemetry span.val {
+  color: var(--purple-bright);
+  font-weight: 700;
+}
+/* Formulário de Novas Funcionalidades */
+.custom-request-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-purple);
+  border-radius: 28px;
+  padding: 45px;
+  margin-top: 60px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+.custom-request-box h3 {
+  font-family: var(--font-tech);
+  font-size: 1.5rem;
+  color: var(--text-white);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.custom-request-box h3 i {
+  color: var(--purple-neon);
+}
+.custom-request-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 25px;
+}
+.custom-request-form .full-width {
+  grid-column: span 2;
+}
+.form-group label {
+  display: block;
+  font-family: var(--font-sub);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-white);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: rgba(6, 4, 12, 0.8);
+  border: 1px solid var(--border-purple);
+  border-radius: 14px;
+  padding: 16px 20px;
+  color: var(--text-white);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--purple-neon);
+  box-shadow: 0 0 20px var(--purple-glow);
+}
+.submit-btn {
+  background: linear-gradient(135deg, var(--purple-neon), var(--purple-dark));
+  color: var(--text-white);
+  border: none;
+  padding: 16px 36px;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px var(--purple-glow);
+}
+.submit-btn:hover {
+  background: linear-gradient(135deg, var(--purple-bright), var(--purple-neon));
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(168, 85, 247, 0.6);
+}
+/* Contato */
+.contact-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+.contact-link {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-purple);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  color: var(--text-white);
+  text-decoration: none;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+.contact-link i {
+  color: var(--purple-neon);
+  font-size: 1.4rem;
+}
+.contact-link:hover {
+  background: var(--purple-neon);
+  border-color: var(--purple-bright);
+  box-shadow: 0 10px 30px var(--purple-glow);
+  transform: translateY(-3px);
+}
+/* Footer */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--border-purple);
+  font-family: var(--font-tech);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-gray);
+  text-align: center;
+}
+/* Responsive */
+@media (max-width: 900px) {
+  .sim-grid {
+    grid-template-columns: 1fr;
+  }
+  .custom-request-form {
+    grid-template-columns: 1fr;
+  }
+  .custom-request-form .full-width {
+    grid-column: span 1;
+  }
+}
+@media (max-width: 768px) {
+  header {
+    border-radius: 25px;
+    top: 10px;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  nav {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: rgba(6, 4, 12, 0.95);
+    border: 1px solid var(--border-purple);
+    border-radius: 20px;
+    padding: 24px 0;
+  }
+  nav.active {
+    display: block;
+  }
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .custom-request-box, .simulator-box {
+    padding: 25px;
+  }
+}
+</style>
 </head>
 <body>
+<header>
+  <div class="container">
+    <a href="#" class="logo"><span></span> KAIZEN MED</a>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    <nav>
+      <ul>
+        <li><a href="#projeto">O Projeto</a></li>
+        <li><a href="#funcionalidades">Funções</a></li>
+        <li><a href="#simulador">Modelo TJBot</a></li>
+        <li><a href="#personalizado">Novas Funções</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <header>
-        <div class="container">
-            <a href="#" class="logo"><span></span> KAIZEN MED</a>
-            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-            <nav>
-                <ul>
-                    <li><a href="#projeto">O Projeto</a></li>
-                    <li><a href="#funcionalidades">Funções</a></li>
-                    <li><a href="#simulador">Modelo TJBot</a></li>
-                    <li><a href="#personalizado">Novas Funções</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                </ul>
-            </nav>
+<main>
+  <!-- Hero Section -->
+  <section class="hero" id="projeto">
+    <div class="container">
+      <div class="slogan-badge">
+        <i class="fas fa-stethoscope"></i> PROJETO KAIZEN // ÁREA MÉDICA
+      </div>
+      <p class="hero-slogan-sub">"POUPANDO O TEMPO DO MÉDICO PARA UM ATENDIMENTO MAIS AGILIZADO E PRODUTIVO"</p>
+      <h1>SEU ASSISTENTE DE CABECEIRA NA <span>INDÚSTRIA 5.0</span></h1>
+      <p>O <strong>Projeto Kaizen</strong> foi desenvolvido para atuar lado a lado com o médico na ala hospitalar. O TJBot assume tarefas repetitivas — como buscar dados na sala de arquivos, registrar a ficha do paciente por voz e aferir a frequência cardíaca — economizando tempo valioso da equipe de saúde.</p>
+      <a href="#simulador" class="cta-button"><i class="fas fa-robot"></i> TESTAR SIMULAÇÃO DO TJBOT</a>
+    </div>
+  </section>
+
+  <!-- Funcionalidades Principais -->
+  <section id="funcionalidades">
+    <div class="container">
+      <h2 class="section-title">COMO O TJBOT <span>AUXILIA O MÉDICO</span></h2>
+      <p class="section-subtitle">Pequenas tarefas consomem minutos preciosos de cada consulta. O TJBot elimina esses gargalos operacionais:</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-folder-open"></i></div>
+          <h3>Consulta de Ficha Sem Deslocamento</h3>
+          <p>Em vez de sair da ala médica e ir até a sala de arquivos para buscar a ficha e verificar medicamentos, o médico solicita ao TJBot por comando de voz e recebe todas as informações na hora.</p>
         </div>
-    </header>
-
-    <main>
-        <!-- Hero Section -->
-        <section class="hero" id="projeto">
-            <div class="container">
-                <div class="slogan-badge">
-                    <i class="fas fa-stethoscope"></i> PROJETO KAIZEN // ÁREA MÉDICA
-                </div>
-                
-                <p class="hero-slogan-sub">"POUPANDO O TEMPO DO MÉDICO PARA UM ATENDIMENTO MAIS AGILIZADO E PRODUTIVO"</p>
-
-                <h1>SEU ASSISTENTE DE CABECEIRA NA <span>INDUSTRIA 5.0</span></h1>
-                
-                <p>O <strong>Projeto Kaizen</strong> foi desenvolvido para atuar lado a lado com o médico na ala hospitalar. O TJBot assume tarefas repetitivas — como buscar dados na sala de arquivos, registrar a ficha do paciente por voz e aferir a frequência cardíaca — economizando tempo valioso da equipe de saúde.</p>
-                
-                <a href="#simulador" class="cta-button"><i class="fas fa-robot"></i> TESTAR SIMULAÇÃO DO TJBOT</a>
-            </div>
-        </section>
-
-        <!-- Funcionalidades Principais -->
-        <section id="funcionalidades">
-            <div class="container">
-                <h2 class="section-title">COMO O TJBOT <span>AUXILIA O MÉDICO</span></h2>
-                <p class="section-subtitle">Pequenas tarefas consomem minutos preciosos de cada consulta. O TJBot elimina esses gargalos operacionais:</p>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-folder-open"></i></div>
-                        <h3>Consulta de Ficha Sem Deslocamento</h3>
-                        <p>Em vez de sair da ala médica e ir até a sala de arquivos para buscar a ficha e verificar medicamentos, o médico solicita ao TJBot por comando de voz e recebe todas as informações na hora.</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-microphone-lines"></i></div>
-                        <h3>Criação e Transcrição Autônoma</h3>
-                        <p>Durante a consulta, o TJBot ouve a conversa entre o médico e o paciente ou recebe o ditado das informações, gerando e salvando a ficha de atendimento automaticamente.</p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon"><i class="fas fa-heart-pulse"></i></div>
-                        <h3>Aferição de Frequência Cardíaca</h3>
-                        <p>Através de sensores acoplados, o TJBot analisa a frequência cardíaca do paciente e transmite o resultado exato ao médico assim que solicitado, simplificando o processo.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Simulador do TJBot por Modo de Operação -->
-        <section id="simulador">
-            <div class="container">
-                <h2 class="section-title">SIMULADOR DO <span>TJBOT MÉDICO</span></h2>
-                <p class="section-subtitle">Clique no modo desejado para ver como o robô se comporta e quais sensores são ativados em cada tarefa:</p>
-                
-                <div class="simulator-box">
-                    <!-- Abas Interativas -->
-                    <div class="mode-tabs">
-                        <button class="mode-btn active" data-mode="consulta">
-                            <i class="fas fa-file-medical"></i> Consulta de Prontuário
-                        </button>
-                        <button class="mode-btn" data-mode="registro">
-                            <i class="fas fa-pen-to-square"></i> Transcrição de Ficha
-                        </button>
-                        <button class="mode-btn" data-mode="cardio">
-                            <i class="fas fa-wave-square"></i> Medição Cardíaca
-                        </button>
-                    </div>
-
-                    <!-- Conteúdo Dinâmico -->
-                    <div class="sim-grid" id="sim-display">
-                        <!-- JS vai carregar aqui -->
-                    </div>
-                </div>
-
-                <!-- Formulário para Pedir Funções Não Explicadas / Personalizadas -->
-                <div class="custom-request-box" id="personalizado">
-                    <h3><i class="fas fa-sliders"></i> PRECISA DE OUTRA FUNÇÃO NO SEU HOSPITAL/CLÍNICA?</h3>
-                    <p>Se a sua rotina médica exige um auxílio que não foi detalhado acima, descreva a necessidade abaixo para adaptarmos os sensores e a IA do TJBot ao seu setor.</p>
-                    
-                    <form class="custom-request-form" onsubmit="handleCustomSubmit(event)">
-                        <div class="form-group">
-                            <label>Nome do Médico / Instituição</label>
-                            <input type="text" placeholder="Ex: Dr. Carlos / Hospital São Lucas" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Especialidade / Ala Médica</label>
-                            <input type="text" placeholder="Ex: Pediatria, UTI, Pronto-Socorro..." required>
-                        </div>
-                        <div class="form-group full-width">
-                            <label>Qual nova função você gostaria que o TJBot executasse?</label>
-                            <textarea rows="4" placeholder="Ex: Monitoramento contínuo de oxigenação, leitor de código de barras para checagem de pulseira de leito, lembrete de horários de medicação..." required></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> ENVIAR SUGESTÃO DE FUNCIONALIDADE</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contato -->
-        <section id="contato">
-            <div class="container">
-                <h2 class="section-title">CONTATO <span>EQUIPE KAIZEN </span></h2>
-                <div class="contact-options">
-                    <a href="mailto:KAIZEN7zz@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> E-mail Direct</a>
-                    <a href="https://wa.me/5511978356569" target="_blank" class="contact-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                    <a href="https://instagram.com/KAIZEN7z" target="_blank" class="contact-link"><i class="fab fa-instagram"></i> Instagram</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 KAIZEN — Projeto Kaizen Medical | Otimizando o Tempo do Médico</p>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-microphone-lines"></i></div>
+          <h3>Criação e Transcrição Autônoma</h3>
+          <p>Durante a consulta, o TJBot ouve a conversa entre o médico e o paciente ou recebe o ditado das informações, gerando e salvando a ficha de atendimento automaticamente.</p>
         </div>
-    </footer>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-heart-pulse"></i></div>
+          <h3>Aferição de Frequência Cardíaca</h3>
+          <p>Através de sensores acoplados, o TJBot analisa a frequência cardíaca do paciente e transmite o resultado exato ao médico assim que solicitado, simplificando o processo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Dados de Simulação do TJBot focados no novo Escopo
-        const modeData = {
-            consulta: {
-                title: "Busca Instantânea de Prontuário",
-                icon: "fas fa-file-medical",
-                description: "O médico solicita via comando de voz o nome ou código do paciente. O TJBot conecta-se à base de dados do hospital ou à sala de arquivos digitalizada e reproduz em áudio/display a medicação recomendada e o histórico médico.",
-                benefits: [
-                    "Zero tempo gasto em deslocamento até a sala de arquivos.",
-                    "Revisão imediata de alergias e histórico de medicamentos.",
-                    "Atendimento mais rápido e foco total no paciente."
-                ],
-                spec: {
-                    badge: "MODO: BUSCA DE ARQUIVOS",
-                    iconClass: "fas fa-user-nurse",
-                    status: "Conectado ao BD Hospitalar",
-                    sensors: "Reconhecimento de Voz / Wi-Fi",
-                    action: "Leitura de Prontuários em Tempo Real"
-                }
-            },
-            registro: {
-                title: "Criação Automática da Ficha do Paciente",P
-                icon: "fas fa-pen-to-square",
-                description: "Durante o atendimento, o TJBot capta o diálogo entre médico e paciente ou escuta as observações ditadas pelo médico. A IA processa as informações e preenche a ficha médica sem exigir digitação manual.",
-                benefits: [
-                    "Elimina a necessidade de preencher papéis ou digitar durante a consulta.",
-                    "Transcrição precisa dos sintomas e receitas prescritas.",
-                    "Registro automático na ficha digital do paciente."
-                ],
-                benefitsIcon: "fas fa-check-double",
-                spec: {
-                    badge: "MODO: TRANSCRIÇÃO IA",
-                    iconClass: "fas fa-file-signature",
-                    status: "Microfone Sensível Ativo",
-                    sensors: "Processamento NLP / Áudio",
-                    action: "Preenchimento Automático da Ficha"
-                }
-            },
-            cardio: {
-                title: "Medição de Frequência Cardíaca",
-                icon: "fas fa-heart-pulse",
-                description: "O TJBot possui um sensor de pulso/oximetria integrado. O médico orienta o paciente a posicionar o dedo no sensor do robô, e o valor em BPM é transmitido na hora no visor e repassado verbalmente ao médico.",
-                benefits: [
-                    "Aferição rápida de BPM diretamente no robô assistente.",
-                    "Alertas sonoros para frequências cardíacas anormais.",
-                    "Histórico cardíaco anexado automaticamente à ficha da consulta."
-                ],
-                spec: {
-                    badge: "MODO: SENSOR CARDÍACO",
-                    iconClass: "fas fa-heart-circle-bolt",
-                    status: "Leitor de Pulso Ativo",
-                    sensors: "Sensor PPG / Infravermelho",
-                    action: "Medição e Transmissão de BPM"
-                }
-            }
-        };
+  <!-- Simulador do TJBot -->
+  <section id="simulador">
+    <div class="container">
+      <h2 class="section-title">SIMULADOR DO <span>TJBOT MÉDICO</span></h2>
+      <p class="section-subtitle">Clique no modo desejado para ver como o robô se comporta e quais sensores são ativados em cada tarefa:</p>
+      <div class="simulator-box">
+        <div class="mode-tabs">
+          <button class="mode-btn active" data-mode="consulta">
+            <i class="fas fa-file-medical"></i> Consulta de Prontuário
+          </button>
+          <button class="mode-btn" data-mode="registro">
+            <i class="fas fa-pen-to-square"></i> Transcrição de Ficha
+          </button>
+          <button class="mode-btn" data-mode="cardio">
+            <i class="fas fa-wave-square"></i> Medição Cardíaca
+          </button>
+        </div>
+        <div class="sim-grid" id="sim-display"></div>
+      </div>
 
-        // Função para atualizar o simulador
-        function updateSimDisplay(key) {
-            const data = modeData[key];
-            const display = document.getElementById('sim-display');
+      <!-- Formulário para Pedir Funções Personalizadas -->
+      <div class="custom-request-box" id="personalizado">
+        <h3><i class="fas fa-sliders"></i> PRECISA DE OUTRA FUNÇÃO NO SEU HOSPITAL/CLÍNICA?</h3>
+        <p>Se a sua rotina médica exige um auxílio que não foi detalhado acima, descreva a necessidade abaixo para adaptarmos os sensores e a IA do TJBot ao seu setor.</p>
+        
+        <form class="custom-request-form" id="form-sugestao">
+          <div class="form-group">
+            <label>Nome do Médico / Instituição</label>
+            <input type="text" id="nome_instituicao" placeholder="Ex: Dr. Carlos / Hospital São Lucas" required>
+          </div>
+          <div class="form-group">
+            <label>Especialidade / Ala Médica</label>
+            <input type="text" id="especialidade_ala" placeholder="Ex: Pediatria, UTI, Pronto-Socorro..." required>
+          </div>
+          <div class="form-group full-width">
+            <label>Qual nova função você gostaria que o TJBot executasse?</label>
+            <textarea id="descricao_funcionalidade" rows="4" placeholder="Ex: Monitoramento contínuo de oxigenação, leitor de código de barras para checagem de pulseira de leito, lembrete de horários de medicação..." required></textarea>
+          </div>
+          <div class="form-group full-width">
+            <button type="submit" class="submit-btn" id="btn-enviar">
+              <i class="fas fa-paper-plane"></i> ENVIAR SUGESTÃO DE FUNCIONALIDADE
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
 
-            display.innerHTML = `
-                <div class="sim-info">
-                    <h3><i class="${data.icon}"></i> ${data.title}</h3>
-                    <p>${data.description}</p>
-                    <ul class="sim-benefits">
-                        ${data.benefits.map(b => `<li><i class="fas fa-check"></i> <span>${b}</span></li>`).join('')}
-                    </ul>
-                </div>
+  <!-- Contato -->
+  <section id="contato">
+    <div class="container">
+      <h2 class="section-title">CONTATO <span>EQUIPE KAIZEN</span></h2>
+      <div class="contact-options">
+        <a href="mailto:KAIZEN7zz@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> E-mail Direct</a>
+        <a href="https://wa.me/5511978356569" target="_blank" class="contact-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="https://instagram.com/KAIZEN7z" target="_blank" class="contact-link"><i class="fab fa-instagram"></i> Instagram</a>
+      </div>
+    </div>
+  </section>
+</main>
 
-                <div class="robot-card-graphic">
-                    <i class="${data.spec.iconClass} robot-avatar"></i>
-                    <span class="robot-status-pill">${data.spec.badge}</span>
-                    <div class="robot-telemetry">
-                        <div><span>STATUS DO SISTEMA:</span> <span class="val">${data.spec.status}</span></div>
-                        <div><span>SENSORES EM USO:</span> <span class="val">${data.spec.sensors}</span></div>
-                        <div><span>AÇÃO EXECUTADA:</span> <span class="val">${data.spec.action}</span></div>
-                    </div>
-                </div>
-            `;
-        }
+<footer>
+  <div class="container">
+    <p>&copy; 2026 KAIZEN Projeto Kaizen Medical | Otimizando o Tempo do Médico</p>
+  </div>
+</footer>
 
-        // Listener dos Botões do Simulador
-        const modeButtons = document.querySelectorAll('.mode-btn');
-        modeButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                modeButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const mode = btn.getAttribute('data-mode');
-                updateSimDisplay(mode);
-            });
-        });
+<!-- Script do Simulador e Navegação -->
+<script>
+const modeData = {
+  consulta: {
+    title: "Busca Instantânea de Prontuário",
+    icon: "fas fa-file-medical",
+    description: "O médico solicita via comando de voz o nome ou código do paciente. O TJBot conecta-se à base de dados do hospital ou à sala de arquivos digitalizada e reproduz em áudio/display a medicação recomendada e o histórico médico.",
+    benefits: [
+      "Zero tempo gasto em deslocamento até a sala de arquivos.",
+      "Revisão imediata de alergias e histórico de medicamentos.",
+      "Atendimento mais rápido e foco total no paciente."
+    ],
+    spec: {
+      badge: "MODO: BUSCA DE ARQUIVOS",
+      iconClass: "fas fa-user-nurse",
+      status: "Conectado ao BD Hospitalar",
+      sensors: "Reconhecimento de Voz / Wi-Fi",
+      action: "Leitura de Prontuários em Tempo Real"
+    }
+  },
+  registro: {
+    title: "Criação Automática da Ficha do Paciente",
+    icon: "fas fa-pen-to-square",
+    description: "Durante o atendimento, o TJBot capta o diálogo entre médico e paciente ou escuta as observações ditadas pelo médico. A IA processa as informações e preenche a ficha médica sem exigir digitação manual.",
+    benefits: [
+      "Elimina a necessidade de preencher papéis ou digitar durante a consulta.",
+      "Transcrição precisa dos sintomas e receitas prescritas.",
+      "Registro automático na ficha digital do paciente."
+    ],
+    spec: {
+      badge: "MODO: TRANSCRIÇÃO IA",
+      iconClass: "fas fa-file-signature",
+      status: "Microfone Sensível Ativo",
+      sensors: "Processamento NLP / Áudio",
+      action: "Preenchimento Automático da Ficha"
+    }
+  },
+  cardio: {
+    title: "Medição de Frequência Cardíaca",
+    icon: "fas fa-heart-pulse",
+    description: "O TJBot possui um sensor de pulso/oximetria integrado. O médico orienta o paciente a posicionar o dedo no sensor do robô, e o valor em BPM é transmitido na hora no visor e repassado verbalmente ao médico.",
+    benefits: [
+      "Aferição rápida de BPM diretamente no robô assistente.",
+      "Alertas sonoros para frequências cardíacas anormais.",
+      "Histórico cardíaco anexado automaticamente à ficha da consulta."
+    ],
+    spec: {
+      badge: "MODO: SENSOR CARDÍACO",
+      iconClass: "fas fa-heart-circle-bolt",
+      status: "Leitor de Pulso Ativo",
+      sensors: "Sensor PPG / Infravermelho",
+      action: "Medição e Transmissão de BPM"
+    }
+  }
+};
 
-        // Carregar modo inicial
-        updateSimDisplay('consulta');
+function updateSimDisplay(key) {
+  const data = modeData[key];
+  const display = document.getElementById('sim-display');
+  if (!display) return;
+  display.innerHTML = `
+    <div class="sim-info">
+      <h3><i class="${data.icon}"></i> ${data.title}</h3>
+      <p>${data.description}</p>
+      <ul class="sim-benefits">
+        ${data.benefits.map(b => `<li><i class="fas fa-check"></i> <span>${b}</span></li>`).join('')}
+      </ul>
+    </div>
+    <div class="robot-card-graphic">
+      <i class="${data.spec.iconClass} robot-avatar"></i>
+      <span class="robot-status-pill">${data.spec.badge}</span>
+      <div class="robot-telemetry">
+        <div><span>STATUS DO SISTEMA:</span> <span class="val">${data.spec.status}</span></div>
+        <div><span>SENSORES EM USO:</span> <span class="val">${data.spec.sensors}</span></div>
+        <div><span>AÇÃO EXECUTADA:</span> <span class="val">${data.spec.action}</span></div>
+      </div>
+    </div>
+  `;
+}
 
-        // Form Submit
-        function handleCustomSubmit(e) {
-            e.preventDefault();
-            alert("Sua sugestão de funcionalidade foi enviada! A equipe do Projeto Kaizen analisará a viabilidade do novo módulo do TJBot.");
-            e.target.reset();
-        }
+const modeButtons = document.querySelectorAll('.mode-btn');
+modeButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    modeButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const mode = btn.getAttribute('data-mode');
+    updateSimDisplay(mode);
+  });
+});
 
-        // Menu Mobile Toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const nav = document.querySelector('header nav');
+updateSimDisplay('consulta');
 
-        menuToggle.addEventListener('click', () => {
-            nav.classList.toggle('active');
-            menuToggle.textContent = nav.classList.contains('active') ? '✕' : '☰';
-        });
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('header nav');
 
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 100, 
-                        behavior: 'smooth'
-                    });
-                    if (nav.classList.contains('active')) {
-                        nav.classList.remove('active');
-                        menuToggle.textContent = '☰';
-                    }
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+if (menuToggle && nav) {
+  menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
+    menuToggle.textContent = nav.classList.contains('active') ? '✕' : '☰';
+  });
+}
 
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      window.scrollTo({
+        top: target.offsetTop - 100,
+        behavior: 'smooth'
+      });
+      if (nav && nav.classList.contains('active')) {
+        nav.classList.remove('active');
+        if (menuToggle) menuToggle.textContent = '☰';
+      }
+    }
+  });
+});
+</script>
+
+<!-- Conexão com Banco de Dados Firebase -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-  // COLE SUAS CHAVES AQUI:
-const firebaseConfig = {
-  apiKey: "AIzaSyCwVMmqEqdxSySOYvlY89UKkSclgBui4zc",
-  authDomain: "projeto--kaizen.firebaseapp.com",
-  projectId: "projeto--kaizen",
-  storageBucket: "projeto--kaizen.firebasestorage.app",
-  messagingSenderId: "279073140398",
-  appId: "1:279073140398:web:a8c62f990a861e5d1dc73f",
-  measurementId: "G-0N3MGFZEXM"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyCwVMmqEqdxSySOYvlY89UKkSclgBui4zc",
+    authDomain: "projeto--kaizen.firebaseapp.com",
+    projectId: "projeto--kaizen",
+    storageBucket: "projeto--kaizen.firebasestorage.app",
+    messagingSenderId: "279073140398",
+    appId: "1:279073140398:web:a8c62f990a861e5d1dc73f",
+    measurementId: "G-0N3MGFZEXM"
+  };
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Manipulador do formulário
-  document.querySelector('.custom-request-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
+  const formSugestao = document.getElementById('form-sugestao');
+  if (formSugestao) {
+    formSugestao.addEventListener('submit', async function(e) {
+      e.preventDefault();
 
-    const inputs = e.target.querySelectorAll('input, textarea');
-    const nome = inputs[0].value;
-    const especialidade = inputs[1].value;
-    const descricao = inputs[2].value;
+      const btn = document.getElementById('btn-enviar');
+      const textoOriginal = btn.innerHTML;
 
-    try {
-      await addDoc(collection(db, "sugestoes"), {
-        nome_medico_instituicao: nome,
-        especialidade_ala: especialidade,
-        descricao_funcionalidade: descricao,
-        status: "pendente",
-        data_envio: serverTimestamp()
-      });
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ENVIANDO...';
 
-      alert("Sua sugestão de funcionalidade foi enviada com sucesso!");
-      e.target.reset();
-    } catch (error) {
-      console.error("Erro ao salvar:", error);
-      alert("Erro ao enviar sugestão: " + error.message);
-    }
-  });
+      const nome = document.getElementById('nome_instituicao').value;
+      const especialidade = document.getElementById('especialidade_ala').value;
+      const descricao = document.getElementById('descricao_funcionalidade').value;
+
+      try {
+        await addDoc(collection(db, "sugestoes"), {
+          nome_medico_instituicao: nome,
+          especialidade_ala: especialidade,
+          descricao_funcionalidade: descricao,
+          status: "pendente",
+          data_envio: serverTimestamp()
+        });
+
+        alert("Sua sugestão de funcionalidade foi enviada com sucesso!");
+        formSugestao.reset();
+      } catch (error) {
+        console.error("Erro ao salvar:", error);
+        alert("Erro ao enviar sugestão: " + error.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = textoOriginal;
+      }
+    });
+  }
 </script>
+</body>
+</html>
