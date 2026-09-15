@@ -806,7 +806,7 @@
                 }
             },
             registro: {
-                title: "Criação Automática da Ficha do Paciente",
+                title: "Criação Automática da Ficha do Paciente",P
                 icon: "fas fa-pen-to-square",
                 description: "Durante o atendimento, o TJBot capta o diálogo entre médico e paciente ou escuta as observações ditadas pelo médico. A IA processa as informações e preenche a ficha médica sem exigir digitação manual.",
                 benefits: [
@@ -919,3 +919,48 @@
     </script>
 </body>
 </html>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // COLE SUAS CHAVES AQUI:
+const firebaseConfig = {
+  apiKey: "AIzaSyCwVMmqEqdxSySOYvlY89UKkSclgBui4zc",
+  authDomain: "projeto--kaizen.firebaseapp.com",
+  projectId: "projeto--kaizen",
+  storageBucket: "projeto--kaizen.firebasestorage.app",
+  messagingSenderId: "279073140398",
+  appId: "1:279073140398:web:a8c62f990a861e5d1dc73f",
+  measurementId: "G-0N3MGFZEXM"
+};
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Manipulador do formulário
+  document.querySelector('.custom-request-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const inputs = e.target.querySelectorAll('input, textarea');
+    const nome = inputs[0].value;
+    const especialidade = inputs[1].value;
+    const descricao = inputs[2].value;
+
+    try {
+      await addDoc(collection(db, "sugestoes"), {
+        nome_medico_instituicao: nome,
+        especialidade_ala: especialidade,
+        descricao_funcionalidade: descricao,
+        status: "pendente",
+        data_envio: serverTimestamp()
+      });
+
+      alert("Sua sugestão de funcionalidade foi enviada com sucesso!");
+      e.target.reset();
+    } catch (error) {
+      console.error("Erro ao salvar:", error);
+      alert("Erro ao enviar sugestão: " + error.message);
+    }
+  });
+</script>
