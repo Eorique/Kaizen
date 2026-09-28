@@ -71,6 +71,9 @@ section{padding:80px 0}
 .contact-link i{color:var(--purple-neon);font-size:1.4rem}
 .contact-link:hover{background:var(--purple-neon);box-shadow:0 10px 30px var(--purple-glow);transform:translateY(-3px)}
 footer{padding:40px 0;border-top:1px solid var(--border-purple);font-family:var(--font-tech);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;text-align:center}
+.resumo-figure{display:flex;justify-content:center;margin:0 auto 40px}
+.resumo-img{max-width:100%;max-height:340px;object-fit:contain;border:1px solid var(--border-purple);border-radius:24px;background:rgba(6,4,12,.6);padding:16px;box-shadow:0 0 30px var(--purple-glow)}
+.tjbot-img{max-width:100%;height:220px;object-fit:contain;margin-bottom:20px;filter:drop-shadow(0 0 20px var(--purple-neon));animation:floatRobot 3.5s ease-in-out infinite}
 @media(max-width:900px){.sim-grid,.custom-request-form{grid-template-columns:1fr}.custom-request-form .full-width{grid-column:span 1}}
 @media(max-width:768px){header{border-radius:25px;top:10px}.hero h1{font-size:2rem}.menu-toggle{display:block}nav{display:none;position:absolute;top:80px;left:0;width:100%;background:rgba(6,4,12,.95);border:1px solid var(--border-purple);border-radius:20px;padding:24px 0}nav.active{display:block}nav ul{flex-direction:column;align-items:center;gap:20px}.custom-request-box,.simulator-box{padding:25px}}
 </style>
@@ -107,6 +110,9 @@ footer{padding:40px 0;border-top:1px solid var(--border-purple);font-family:var(
     <div class="container">
       <h2 class="section-title">RESUMO <span>DO PROJETO</span></h2>
       <p class="section-subtitle">Sabemos que grande parte das pessoas acha chato fazer documentos e preencher fichas em geral, e isso não é diferente na área da saúde. O Kaizen atua como um mini assistente que cuida dessa parte mais burocrática, como preencher as fichas dos pacientes.</p>
+      <figure class="resumo-figure">
+        <img src="imagens/tjbot-resumo.png" alt="TJBot, o robô assistente do Projeto Kaizen" class="resumo-img" onerror="this.parentElement.style.display='none'">
+      </figure>
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon"><i class="fas fa-file-pen"></i></div>
@@ -187,21 +193,21 @@ const modeData = {
     icon: "fas fa-triangle-exclamation",
     description: "Grande parte das pessoas acha chato realizar documentos e preencher fichas, e na área da saúde não é diferente. Essa burocracia toma a atenção que o médico poderia dar ao paciente.",
     benefits: ["Preencher fichas é uma tarefa cansativa e repetitiva.", "A parte burocrática desvia o foco do atendimento.", "O médico precisa de um apoio para essa etapa."],
-    spec: { badge: "ANTES DO KAIZEN", iconClass: "fas fa-file-lines", status: "Médico sobrecarregado", sensors: "Papel / Digitação manual", action: "Preenchimento feito pelo médico" }
+    spec: { badge: "ANTES DO KAIZEN", img: "imagens/tjbot-problema.png", iconClass: "fas fa-file-lines", status: "Médico sobrecarregado", sensors: "Papel / Digitação manual", action: "Preenchimento feito pelo médico" }
   },
   ficha: {
     title: "Preenchimento da Ficha",
     icon: "fas fa-pen-to-square",
     description: "O TJBot atua como um mini assistente e realiza a parte burocrática: preenche a ficha do paciente enquanto o médico conduz a consulta.",
     benefits: ["Ficha do paciente preenchida pelo robô.", "Menos papelada e menos digitação para o médico.", "Processo mais rápido e organizado."],
-    spec: { badge: "MODO: ASSISTENTE", iconClass: "fas fa-file-signature", status: "TJBot ativo", sensors: "Microfone / Processamento", action: "Preenchimento da ficha do paciente" }
+    spec: { badge: "MODO: ASSISTENTE", img: "imagens/tjbot-ficha.png", iconClass: "fas fa-file-signature", status: "TJBot ativo", sensors: "Microfone / Processamento", action: "Preenchimento da ficha do paciente" }
   },
   foco: {
     title: "Foco no Paciente",
     icon: "fas fa-stethoscope",
     description: "Com a burocracia a cargo do Kaizen, o médico passa a ter um foco maior em realizar os exames no paciente e aplicar os possíveis medicamentos.",
     benefits: ["Mais atenção durante a consulta.", "Mais tempo para exames no paciente.", "Aplicação de medicamentos com mais tranquilidade."],
-    spec: { badge: "COM O KAIZEN", iconClass: "fas fa-user-doctor", status: "Médico focado no paciente", sensors: "TJBot cuidando das fichas", action: "Exames e medicação" }
+    spec: { badge: "COM O KAIZEN", img: "imagens/tjbot-foco.png", iconClass: "fas fa-user-doctor", status: "Médico focado no paciente", sensors: "TJBot cuidando das fichas", action: "Exames e medicação" }
   }
 };
 
@@ -218,7 +224,8 @@ function updateSimDisplay(key) {
       </ul>
     </div>
     <div class="robot-card-graphic">
-      <i class="${data.spec.iconClass} robot-avatar"></i>
+      <img src="${data.spec.img}" alt="TJBot" class="tjbot-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <i class="${data.spec.iconClass} robot-avatar" style="display:none"></i>
       <span class="robot-status-pill">${data.spec.badge}</span>
       <div class="robot-telemetry">
         <div><span>STATUS:</span> <span class="val">${data.spec.status}</span></div>
