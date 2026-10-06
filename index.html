@@ -1,176 +1,121 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projeto Kaizen | TJBot Medical Assistant</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    :root{
-      --bg-black:#06040c;
-      --bg-surface:rgba(18,12,34,.75);
-      --purple-neon:#a855f7;
-      --purple-bright:#c084fc;
-      --purple-dark:#581c87;
-      --purple-glow:rgba(168,85,247,.35);
-      --border-purple:rgba(168,85,247,.25);
-      --text-white:#f8fafc;
-      --text-gray:#a1a1aa;
-      --font-tech:'Orbitron',sans-serif;
-      --font-sub:'Rajdhani',sans-serif;
-      --font-body:'Inter',sans-serif;
-    }
-    body{
-      background-color:var(--bg-black);
-      color:var(--text-gray);
-      font-family:var(--font-body);
-      line-height:1.6;
-      overflow-x:hidden;
-      background-image:radial-gradient(circle at 50% -10%,rgba(168,85,247,.25),transparent 60%),radial-gradient(circle at 80% 60%,rgba(107,33,168,.15),transparent 50%);
-    }
-    .container{width:90%;max-width:1140px;margin:0 auto}
-    header{
-      position:fixed;top:20px;left:50%;transform:translateX(-50%);
-      width:90%;max-width:1140px;background:rgba(10,6,20,.85);
-      backdrop-filter:blur(20px);border:1px solid var(--border-purple);
-      border-radius:50px;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 20px var(--purple-glow);
-    }
-    header .container{display:flex;justify-content:space-between;align-items:center;height:70px;padding:0 10px}
-    .logo{font-family:var(--font-tech);font-size:1.1rem;font-weight:900;color:var(--text-white);text-transform:uppercase;letter-spacing:2px;text-decoration:none;padding-left:15px}
-    .logo span{color:var(--purple-neon)}
-    nav ul{display:flex;gap:18px;list-style:none;padding-right:15px}
-    nav a{font-family:var(--font-sub);color:var(--text-white);text-decoration:none;font-size:.88rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;transition:all .3s ease}
-    nav a:hover{color:var(--purple-bright);text-shadow:0 0 10px var(--purple-glow)}
-    .menu-toggle{display:none;background:none;border:none;color:var(--text-white);font-size:1.5rem;cursor:pointer;padding-right:15px}
-
-    .hero{padding:190px 0 70px;text-align:center}
-    .slogan-badge{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sub);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--purple-bright);background:rgba(168,85,247,.12);border:1px solid var(--purple-neon);padding:10px 24px;border-radius:50px;margin-bottom:24px;box-shadow:0 0 20px var(--purple-glow)}
-    .hero h1{font-family:var(--font-tech);font-size:2.6rem;font-weight:900;color:var(--text-white);text-transform:uppercase;line-height:1.2;letter-spacing:1px;max-width:950px;margin:0 auto 20px}
-    .hero h1 span,.section-title span{color:var(--purple-neon);text-shadow:0 0 25px var(--purple-glow)}
-    .hero-slogan-sub{font-family:var(--font-sub);font-size:1.3rem;color:var(--purple-bright);font-weight:700;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px}
-    .hero p{font-size:1.05rem;max-width:850px;margin:0 auto 38px;line-height:1.8}
-    .cta-group{display:flex;gap:15px;justify-content:center;flex-wrap:wrap}
-    .cta-button{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--purple-neon),var(--purple-dark));color:var(--text-white);padding:14px 30px;font-family:var(--font-sub);font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;border-radius:50px;transition:all .3s ease;box-shadow:0 10px 25px var(--purple-glow)}
-    .cta-button:hover{transform:translateY(-3px);background:linear-gradient(135deg,var(--purple-bright),var(--purple-neon))}
-    .cta-button.secondary{background:rgba(168,85,247,.1);border:1px solid var(--purple-neon)}
-
-    section{padding:70px 0}
-    .section-title{font-family:var(--font-tech);font-size:2rem;font-weight:900;color:var(--text-white);text-transform:uppercase;letter-spacing:1px;margin-bottom:15px;text-align:center}
-    .section-subtitle{text-align:center;max-width:780px;margin:0 auto 40px;font-size:1rem}
-
-    .kaizen-meaning-card{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:24px;padding:35px;display:grid;grid-template-columns:1fr 2fr;gap:30px;align-items:center}
-    .kanji-box{text-align:center;background:rgba(6,4,12,.8);border:1px solid var(--purple-neon);border-radius:20px;padding:30px;box-shadow:0 0 25px var(--purple-glow)}
-    .kanji-box .kanji{font-size:4rem;color:var(--purple-bright);font-weight:bold;line-height:1}
-    .kanji-box .kanji-sub{font-family:var(--font-tech);font-size:1.1rem;color:var(--text-white);margin-top:10px}
-    .meaning-text h3{font-family:var(--font-tech);color:var(--text-white);font-size:1.4rem;margin-bottom:12px}
-    .meaning-text p{margin-bottom:12px;line-height:1.7}
-
-    .docs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
-    .doc-card{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:24px;padding:30px;text-align:center;transition:all .3s ease}
-    .doc-card:hover{transform:translateY(-5px);border-color:var(--purple-bright);box-shadow:0 10px 30px var(--purple-glow)}
-    .doc-icon{font-size:2.8rem;color:var(--purple-bright);margin-bottom:15px}
-    .doc-card h3{font-family:var(--font-tech);color:var(--text-white);font-size:1.2rem;margin-bottom:10px}
-    .doc-card p{font-size:.9rem;margin-bottom:20px}
-
-    .arch-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-    .arch-card{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:20px;padding:25px;position:relative;text-align:center}
-    .step-num{position:absolute;top:-12px;left:20px;background:var(--purple-neon);color:var(--text-white);font-family:var(--font-tech);font-size:.8rem;padding:4px 12px;border-radius:20px;font-weight:bold}
-    .arch-card i{font-size:2rem;color:var(--purple-bright);margin:15px 0 10px}
-    .arch-card h4{font-family:var(--font-tech);color:var(--text-white);font-size:1rem;margin-bottom:8px}
-    .arch-card p{font-size:.85rem}
-
-    .code-box{background:rgba(6,4,12,.95);border:1px solid var(--border-purple);border-radius:24px;padding:25px;box-shadow:0 0 30px var(--purple-glow)}
-    .code-tabs{display:flex;gap:10px;overflow-x:auto;padding-bottom:15px;margin-bottom:15px;border-bottom:1px solid var(--border-purple)}
-    .code-tab-btn{background:rgba(18,12,34,.8);border:1px solid var(--border-purple);color:var(--text-white);padding:10px 18px;font-family:var(--font-sub);font-size:.9rem;font-weight:bold;border-radius:30px;cursor:pointer;white-space:nowrap;transition:all .3s ease}
-    .code-tab-btn.active{background:var(--purple-dark);border-color:var(--purple-neon);color:var(--purple-bright)}
-    .code-container{position:relative}
-    pre{background:#0a0614;border:1px solid rgba(168,85,247,.15);border-radius:15px;padding:20px;overflow-x:auto;font-family:'Courier New',Courier,monospace;font-size:.88rem;color:#d8b4fe;line-height:1.5}
-    .code-desc{font-size:.9rem;color:var(--text-white);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-
-    .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-bottom:40px}
-    .impact-card{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:20px;padding:25px;text-align:center}
-    .impact-value{font-family:var(--font-tech);font-size:2.2rem;color:var(--purple-bright);font-weight:bold;margin:10px 0}
-    .impact-card p{font-size:.9rem}
-    .calc-box{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:24px;padding:30px;text-align:center}
-    .calc-box h3{font-family:var(--font-tech);color:var(--text-white);margin-bottom:20px}
-    .slider-container{margin:20px 0}
-    .slider-container input{width:80%;max-width:400px;accent-color:var(--purple-neon)}
-    .calc-result{font-family:var(--font-tech);font-size:1.3rem;color:var(--purple-neon);margin-top:15px}
-
-    .comp-table-wrapper{overflow-x:auto;background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:24px;padding:20px}
-    .comp-table{width:100%;border-collapse:collapse;text-align:left;font-size:.92rem}
-    .comp-table th,.comp-table td{padding:14px 18px;border-bottom:1px solid rgba(168,85,247,.15)}
-    .comp-table th{font-family:var(--font-tech);color:var(--purple-bright);text-transform:uppercase;font-size:.85rem}
-    .comp-table td{color:var(--text-white)}
-    .comp-table tr:hover td{background:rgba(168,85,247,.05)}
-    .comp-link{color:var(--purple-bright);text-decoration:none;font-weight:bold;display:inline-flex;align-items:center;gap:6px}
-    .comp-link:hover{text-decoration:underline}
-    .total-box{text-align:right;margin-top:20px;font-family:var(--font-tech);font-size:1.2rem;color:var(--purple-bright)}
-
-    .simulator-box{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:28px;padding:40px;box-shadow:0 20px 50px rgba(0,0,0,.6),0 0 30px var(--purple-glow)}
-    .mode-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-bottom:35px}
-    .mode-btn{background:rgba(6,4,12,.6);border:1px solid var(--border-purple);padding:12px 22px;font-family:var(--font-sub);font-size:.95rem;font-weight:700;text-transform:uppercase;color:var(--text-white);display:inline-flex;align-items:center;gap:10px;cursor:pointer;border-radius:50px;transition:all .3s ease}
-    .mode-btn.active{background:linear-gradient(135deg,var(--purple-neon),var(--purple-dark));border-color:var(--purple-bright)}
-    .sim-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:35px;align-items:center}
-    .sim-info h3{font-family:var(--font-tech);font-size:1.4rem;color:var(--text-white);margin-bottom:16px;display:flex;align-items:center;gap:10px}
-    .sim-benefits{list-style:none;display:grid;gap:10px}
-    .sim-benefits li{background:rgba(168,85,247,.06);border:1px solid var(--border-purple);border-radius:12px;padding:12px 16px;font-size:.9rem;color:var(--text-white);display:flex;align-items:center;gap:10px}
-    .robot-card-graphic{background:rgba(6,4,12,.8);border:2px dashed var(--purple-neon);border-radius:24px;padding:25px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-    .robot-avatar{font-size:5rem;color:var(--purple-bright);filter:drop-shadow(0 0 20px var(--purple-neon));animation:floatRobot 3.5s ease-in-out infinite;margin-bottom:15px}
-    @keyframes floatRobot{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-    .robot-status-pill{background:linear-gradient(135deg,var(--purple-neon),var(--purple-dark));color:var(--text-white);font-family:var(--font-tech);font-size:.75rem;padding:6px 18px;border-radius:50px;margin-bottom:15px}
-    .robot-telemetry{width:100%;font-family:var(--font-sub);font-size:.9rem;color:var(--text-white);border-top:1px dashed var(--border-purple);padding-top:14px}
-    .robot-telemetry div{display:flex;justify-content:space-between;margin-bottom:6px}
-    .robot-telemetry span.val{color:var(--purple-bright);font-weight:700}
-
-    .custom-request-box{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:28px;padding:40px;margin-top:60px}
-    .custom-request-box h3{font-family:var(--font-tech);font-size:1.3rem;color:var(--text-white);margin-bottom:10px}
-    .custom-request-form{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
-    .custom-request-form .full-width{grid-column:span 2}
-    .form-group label{display:block;font-family:var(--font-sub);font-size:.9rem;font-weight:700;color:var(--text-white);margin-bottom:6px}
-    .form-group input,.form-group textarea{width:100%;background:rgba(6,4,12,.8);border:1px solid var(--border-purple);border-radius:12px;padding:14px 18px;color:var(--text-white);outline:none}
-    .submit-btn{background:linear-gradient(135deg,var(--purple-neon),var(--purple-dark));color:var(--text-white);border:none;padding:15px 30px;font-family:var(--font-sub);font-weight:700;font-size:1rem;border-radius:50px;cursor:pointer;transition:all .3s ease}
-    .submit-btn:hover{background:linear-gradient(135deg,var(--purple-bright),var(--purple-neon))}
-
-    .contact-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:30px}
-    .contact-link{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:18px;padding:20px;color:var(--text-white);text-decoration:none;font-family:var(--font-sub);font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s ease}
-    .contact-link:hover{background:var(--purple-neon);transform:translateY(-3px)}
-
-    footer{padding:30px 0;border-top:1px solid var(--border-purple);font-family:var(--font-tech);font-size:.8rem;text-align:center}
-
-    @media(max-width:900px){
-      .sim-grid,.custom-request-form,.kaizen-meaning-card{grid-template-columns:1fr}
-      .custom-request-form .full-width{grid-column:span 1}
-    }
-    @media(max-width:768px){
-      header{border-radius:25px;top:10px}
-      .hero h1{font-size:1.8rem}
-      .menu-toggle{display:block}
-      nav{display:none;position:absolute;top:75px;left:0;width:100%;background:rgba(6,4,12,.95);border:1px solid var(--border-purple);border-radius:20px;padding:20px 0}
-      nav.active{display:block}
-      nav ul{flex-direction:column;align-items:center;gap:15px}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projeto Kaizen | TJBot Medical Assistant</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg-black:#06040c;--bg-surface:rgba(18,12,34,.75);--purple-neon:#a855f7;--purple-bright:#c084fc;--purple-dark:#581c87;--purple-glow:rgba(168,85,247,.35);--border-purple:rgba(168,85,247,.25);--text-white:#f8fafc;--text-gray:#a1a1aa;--font-tech:'Orbitron',sans-serif;--font-sub:'Rajdhani',sans-serif;--font-body:'Inter',sans-serif}
+body{background-color:var(--bg-black);color:var(--text-gray);font-family:var(--font-body);line-height:1.6;overflow-x:hidden;background-image:radial-gradient(circle at 50% -10%,rgba(168,85,247,.25),transparent 60%),radial-gradient(circle at 80% 60%,rgba(107,33,168,.15),transparent 50%)}
+.container{width:90%;max-width:1140px;margin:0 auto}
+header{position:fixed;top:20px;left:50%;transform:translateX(-50%);width:90%;max-width:1140px;background:rgba(10,6,20,.8);backdrop-filter:blur(20px);border:1px solid var(--border-purple);border-radius:50px;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 20px var(--purple-glow)}
+header .container{display:flex;justify-content:space-between;align-items:center;height:70px;padding:0 10px}
+.logo{font-family:var(--font-tech);font-size:1.2rem;font-weight:900;color:var(--text-white);text-transform:uppercase;letter-spacing:2px;text-decoration:none;padding-left:15px}
+nav ul{display:flex;gap:24px;list-style:none;padding-right:15px}
+nav a{font-family:var(--font-sub);color:var(--text-white);text-decoration:none;font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;transition:all .3s ease}
+nav a:hover{color:var(--purple-bright);text-shadow:0 0 10px var(--purple-glow)}
+.menu-toggle{display:none;background:none;border:none;color:var(--text-white);font-size:1.5rem;cursor:pointer;padding-right:15px}
+.hero{padding:210px 0 80px;text-align:center}
+.slogan-badge{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-sub);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--purple-bright);background:rgba(168,85,247,.12);border:1px solid var(--purple-neon);padding:10px 24px;border-radius:50px;margin-bottom:24px;box-shadow:0 0 20px var(--purple-glow)}
+.hero h1{font-family:var(--font-tech);font-size:2.8rem;font-weight:900;color:var(--text-white);text-transform:uppercase;line-height:1.2;letter-spacing:1px;max-width:950px;margin:0 auto 20px}
+.hero h1 span,.section-title span{color:var(--purple-neon);text-shadow:0 0 25px var(--purple-glow)}
+.hero-slogan-sub{font-family:var(--font-sub);font-size:1.3rem;color:var(--purple-bright);font-weight:700;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px}
+.hero p{font-size:1.1rem;max-width:850px;margin:0 auto 38px;line-height:1.8}
+.cta-button{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--purple-neon),var(--purple-dark));color:var(--text-white);padding:16px 36px;font-family:var(--font-sub);font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:2px;text-decoration:none;border-radius:50px;transition:all .3s ease;box-shadow:0 10px 25px var(--purple-glow)}
+.cta-button:hover{transform:translateY(-3px);background:linear-gradient(135deg,var(--purple-bright),var(--purple-neon))}
+section{padding:80px 0}
+.section-title{font-family:var(--font-tech);font-size:2.2rem;font-weight:900;color:var(--text-white);text-transform:uppercase;letter-spacing:1px;margin-bottom:15px;text-align:center}
+.section-subtitle{text-align:center;max-width:750px;margin:0 auto 40px;font-size:1.05rem}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:25px;margin-top:30px}
+.feature-card{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:24px;padding:30px;backdrop-filter:blur(15px);transition:all .3s ease}
+.feature-card:hover{transform:translateY(-5px);border-color:var(--purple-bright);box-shadow:0 15px 35px var(--purple-glow)}
+.feature-icon{width:60px;height:60px;background:rgba(168,85,247,.15);border:1px solid var(--purple-neon);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:var(--purple-bright);margin-bottom:20px;box-shadow:0 0 15px var(--purple-glow)}
+.feature-card h3{font-family:var(--font-tech);font-size:1.2rem;color:var(--text-white);margin-bottom:12px;text-transform:uppercase}
+.feature-card p{font-size:.95rem;line-height:1.7}
+.simulator-box{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:28px;padding:40px;backdrop-filter:blur(20px);box-shadow:0 20px 50px rgba(0,0,0,.6),0 0 30px var(--purple-glow)}
+.mode-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-bottom:35px}
+.mode-btn{background:rgba(6,4,12,.6);border:1px solid var(--border-purple);padding:14px 24px;font-family:var(--font-sub);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-white);display:inline-flex;align-items:center;gap:10px;cursor:pointer;border-radius:50px;transition:all .3s ease}
+.mode-btn i{color:var(--purple-neon)}
+.mode-btn.active{background:linear-gradient(135deg,var(--purple-neon),var(--purple-dark));border-color:var(--purple-bright);box-shadow:0 8px 20px var(--purple-glow)}
+.mode-btn.active i{color:var(--text-white)}
+.sim-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:35px;align-items:center;animation:fadeIn .4s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.sim-info h3{font-family:var(--font-tech);font-size:1.5rem;color:var(--text-white);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.sim-info h3 i{color:var(--purple-neon)}
+.sim-info p{font-size:1.05rem;margin-bottom:24px;line-height:1.8}
+.sim-benefits{list-style:none;display:grid;gap:12px}
+.sim-benefits li{background:rgba(168,85,247,.06);border:1px solid var(--border-purple);border-radius:14px;padding:14px 18px;font-size:.95rem;color:var(--text-white);display:flex;align-items:center;gap:12px}
+.sim-benefits li i{color:var(--purple-bright)}
+.robot-card-graphic{background:rgba(6,4,12,.8);border:2px dashed var(--purple-neon);border-radius:24px;padding:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 0 25px var(--purple-glow)}
+.robot-avatar{font-size:5.5rem;color:var(--purple-bright);filter:drop-shadow(0 0 20px var(--purple-neon));animation:floatRobot 3.5s ease-in-out infinite;margin-bottom:20px}
+@keyframes floatRobot{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.robot-status-pill{background:linear-gradient(135deg,var(--purple-neon),var(--purple-dark));color:var(--text-white);font-family:var(--font-tech);font-size:.75rem;font-weight:800;padding:6px 18px;border-radius:50px;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.robot-telemetry{width:100%;font-family:var(--font-sub);font-size:.95rem;color:var(--text-white);border-top:1px dashed var(--border-purple);padding-top:16px}
+.robot-telemetry div{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}
+.robot-telemetry span.val{color:var(--purple-bright);font-weight:700;text-align:right}
+.custom-request-box{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:28px;padding:45px;margin-top:60px;box-shadow:0 15px 35px rgba(0,0,0,.4)}
+.custom-request-box h3{font-family:var(--font-tech);font-size:1.4rem;color:var(--text-white);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.custom-request-box h3 i{color:var(--purple-neon)}
+.custom-request-form{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:25px}
+.custom-request-form .full-width{grid-column:span 2}
+.form-group label{display:block;font-family:var(--font-sub);font-size:.95rem;font-weight:700;color:var(--text-white);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.form-group input,.form-group textarea{width:100%;background:rgba(6,4,12,.8);border:1px solid var(--border-purple);border-radius:14px;padding:16px 20px;color:var(--text-white);font-family:var(--font-body);font-size:.95rem;outline:none;transition:all .3s ease}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--purple-neon);box-shadow:0 0 20px var(--purple-glow)}
+.submit-btn{background:linear-gradient(135deg,var(--purple-neon),var(--purple-dark));color:var(--text-white);border:none;padding:16px 36px;font-family:var(--font-sub);font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:2px;border-radius:50px;cursor:pointer;transition:all .3s ease;box-shadow:0 10px 25px var(--purple-glow)}
+.submit-btn:hover{background:linear-gradient(135deg,var(--purple-bright),var(--purple-neon));transform:translateY(-2px)}
+.contact-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:40px}
+.contact-link{background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:20px;padding:24px;color:var(--text-white);text-decoration:none;font-family:var(--font-sub);font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:2px;display:flex;align-items:center;justify-content:center;gap:12px;transition:all .3s ease}
+.contact-link i{color:var(--purple-neon);font-size:1.4rem}
+.contact-link:hover{background:var(--purple-neon);box-shadow:0 10px 30px var(--purple-glow);transform:translateY(-3px)}
+footer{padding:40px 0;border-top:1px solid var(--border-purple);font-family:var(--font-tech);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;text-align:center}
+.resumo-figure{display:flex;justify-content:center;margin:0 auto 40px}
+.resumo-img{max-width:100%;max-height:340px;object-fit:contain;border:1px solid var(--border-purple);border-radius:24px;background:rgba(6,4,12,.6);padding:16px;box-shadow:0 0 30px var(--purple-glow)}
+.tjbot-img{max-width:100%;height:220px;object-fit:contain;margin-bottom:20px;filter:drop-shadow(0 0 20px var(--purple-neon));animation:floatRobot 3.5s ease-in-out infinite}
+@media(max-width:900px){.sim-grid,.custom-request-form{grid-template-columns:1fr}.custom-request-form .full-width{grid-column:span 1}}
+@media(max-width:768px){header{border-radius:25px;top:10px}.hero h1{font-size:2rem}.menu-toggle{display:block}nav{display:none;position:absolute;top:80px;left:0;width:100%;background:rgba(6,4,12,.95);border:1px solid var(--border-purple);border-radius:20px;padding:24px 0}nav.active{display:block}nav ul{flex-direction:column;align-items:center;gap:20px}.custom-request-box,.simulator-box{padding:25px}}
+.doc-links{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:30px}
+.table-wrap{overflow-x:auto}
+table.comp{width:100%;border-collapse:collapse;background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:20px;overflow:hidden}
+.comp th,.comp td{padding:14px 16px;text-align:left;font-size:.92rem;border-bottom:1px solid var(--border-purple)}
+.comp th{font-family:var(--font-sub);color:var(--text-white);text-transform:uppercase;letter-spacing:1px}
+.comp td a{color:var(--purple-bright);font-weight:600;text-decoration:none}
+.comp tfoot td{color:var(--text-white);font-weight:700}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:30px}
+.flow-step{position:relative;background:var(--bg-surface);border:1px solid var(--border-purple);border-radius:18px;padding:20px 14px;text-align:center;color:var(--text-white);font-size:.9rem}
+.flow-step i{display:block;font-size:1.6rem;color:var(--purple-neon);margin-bottom:10px}
+.flow-step small{display:block;color:var(--text-gray);margin-top:6px}
+.code-box{background:#0b0716;border:1px solid var(--border-purple);border-radius:18px;padding:20px;overflow-x:auto;margin-top:20px}
+.code-box pre{font-family:Consolas,monospace;font-size:.85rem;color:#e9d5ff;white-space:pre}
+.range-row{margin-bottom:22px}
+.range-row label{display:flex;justify-content:space-between;color:var(--text-white);font-family:var(--font-sub);font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.range-row input[type=range]{width:100%;accent-color:var(--purple-neon)}
+.impact-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:10px}
+.impact-card{background:rgba(168,85,247,.08);border:1px solid var(--purple-neon);border-radius:18px;padding:20px;text-align:center}
+.impact-card b{display:block;font-family:var(--font-tech);font-size:1.6rem;color:var(--purple-bright)}
+.note{font-size:.82rem;margin-top:14px;text-align:center}
+</style>
 </head>
 <body>
-
 <header>
   <div class="container">
-    <a href="#" class="logo"><span>KAIZEN</span> MED</a>
+    <a href="#" class="logo">KAIZEN MED</a>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     <nav>
       <ul>
-        <li><a href="#kaizen-significado">Kaizen</a></li>
-        <li><a href="#documentacao">Docs</a></li>
-        <li><a href="#arquitetura">Arquitetura</a></li>
-        <li><a href="#codigo-fonte">Código</a></li>
-        <li><a href="#impacto">Impacto</a></li>
-        <li><a href="#componentes">Hardware</a></li>
-        <li><a href="#simulador">Simulador</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
+  <li><a href="#projeto">O Projeto</a></li>
+  <li><a href="#kaizen">Kaizen</a></li>
+  <li><a href="#solucao">Solução</a></li>
+  <li><a href="#arquitetura">Arquitetura</a></li>
+  <li><a href="#simulador">Modelo TJBot</a></li>
+  <li><a href="#codigo">Código</a></li>
+  <li><a href="#impacto">Impacto</a></li>
+  <li><a href="#componentes">Componentes</a></li>
+  <li><a href="#documentos">Documentos</a></li>
+  <li><a href="#contato">Contato</a></li>
+</ul>
     </nav>
   </div>
 </header>
@@ -178,373 +123,37 @@
 <main>
   <section class="hero" id="projeto">
     <div class="container">
-      <div class="slogan-badge"><i class="fas fa-robot"></i> PROJETO KAIZEN // TJBOT MEDICAL</div>
+      <div class="slogan-badge"><i class="fas fa-stethoscope"></i> PROJETO KAIZEN // ÁREA MÉDICA</div>
       <p class="hero-slogan-sub">"MENOS BUROCRACIA, MAIS ATENÇÃO AO PACIENTE"</p>
-      <h1>ROBÔ ASSISTENTE PARA <span>PREENCHIMENTO DE FICHAS MÉDICAS</span></h1>
-      <p>O <strong>Projeto Kaizen</strong> utiliza o TJBot acoplado à Inteligência Artificial para eliminar a digitação manual de fichas e prontuários durante as consultas, permitindo que o médico foque no exame clínico e no cuidado humanizado.</p>
-      <div class="cta-group">
-        <a href="#documentacao" class="cta-button"><i class="fas fa-file-pdf"></i> ACESSAR DOCUMENTAÇÃO</a>
-        <a href="#simulador" class="cta-button secondary"><i class="fas fa-play"></i> TESTAR SIMULAÇÃO</a>
-      </div>
+      <h1>SEU MINI ASSISTENTE <span>DE FICHAS MÉDICAS</span></h1>
+      <p>O <strong>Projeto Kaizen</strong> é um robozinho assistente para médicos que realiza o preenchimento da ficha dos pacientes enquanto o médico mantém o foco maior no atendimento.</p>
+      <a href="#simulador" class="cta-button"><i class="fas fa-robot"></i> TESTAR SIMULAÇÃO DO TJBOT</a>
     </div>
   </section>
 
-  <section id="kaizen-significado">
+  <section id="solucao">
     <div class="container">
-      <h2 class="section-title">ORIGEM DO NOME <span>KAIZEN</span></h2>
-      <p class="section-subtitle">Por que escolhemos este termo da filosofia de gestão japonesa para dar nome ao robô?</p>
-
-      <div class="kaizen-meaning-card">
-        <div class="kanji-box">
-          <div class="kanji">改善</div>
-          <div class="kanji-sub">KAI (改) + ZEN (善)</div>
+      <h2 class="section-title">RESUMO <span>DO PROJETO</span></h2>
+      <p class="section-subtitle">Sabemos que grande parte das pessoas acha chato fazer documentos e preencher fichas em geral, e isso não é diferente na área da saúde. O Kaizen atua como um mini assistente que cuida dessa parte mais burocrática, como preencher as fichas dos pacientes.</p>
+      <figure class="resumo-figure">
+        <img src="imagens/tjbot-resumo.png" alt="TJBot, o robô assistente do Projeto Kaizen" class="resumo-img" onerror="this.parentElement.style.display='none'">
+      </figure>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-file-pen"></i></div>
+          <h3>Preenchimento de Fichas</h3>
+          <p>O robô assume a parte burocrática e preenche a ficha do paciente, sem que o médico precise parar para escrever ou digitar.</p>
         </div>
-        <div class="meaning-text">
-          <h3>Filosofia de "Melhoria Contínua"</h3>
-          <p><strong>Kaizen</strong> é uma palavra japonesa que significa <em>"mudar para melhor"</em> ou <em>"melhoria contínua"</em>. Na indústria e na tecnologia, representa a busca constante por eliminar desperdícios de tempo, falhas e tarefas repetitivas sem valor agregado.</p>
-          <p>Na saúde, o tempo digitando prontuários é um desperdício que afasta o médico da atenção ao ser humano. O robô foi batizado como <strong>Projeto Kaizen</strong> porque aplica essa filosofia na rotina médica: pequenas automações diárias resultam em uma enorme evolução na qualidade do atendimento hospitalar.</p>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-user-doctor"></i></div>
+          <h3>Foco no Atendimento</h3>
+          <p>Com a papelada resolvida pelo assistente, o médico dedica sua atenção ao paciente durante toda a consulta.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="documentacao">
-    <div class="container">
-      <h2 class="section-title">DOCUMENTAÇÃO E <span>DIÁRIO DE BORDO</span></h2>
-      <p class="section-subtitle">Acesse todos os relatórios do projeto, histórico de desenvolvimento e guias técnicos.</p>
-
-      <div class="docs-grid">
-        <div class="doc-card">
-          <div class="doc-icon"><i class="fas fa-file-lines"></i></div>
-          <h3>Documentação Técnica</h3>
-          <p>Manual completo da arquitetura, esquema de montagem dos componentes, integrações de IA e manuais do usuário.</p>
-          <a href="documentos/documentacao-kaizen.pdf" target="_blank" class="cta-button"><i class="fas fa-download"></i> BAIXAR DOCS (PDF)</a>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-pills"></i></div>
+          <h3>Exames e Medicamentos</h3>
+          <p>Com o Kaizen, o médico passa a ter um foco maior em realizar os exames no paciente e aplicar os possíveis medicamentos.</p>
         </div>
-
-        <div class="doc-card">
-          <div class="doc-icon"><i class="fas fa-book-bookmark"></i></div>
-          <h3>Diário de Bordo</h3>
-          <p>Registro cronológico do desenvolvimento do robô: testes com Raspberry Pi, calibração do microfone e prototipagem.</p>
-          <a href="documentos/diario-de-bordo.pdf" target="_blank" class="cta-button"><i class="fas fa-book-open"></i> ABRIR DIÁRIO</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="arquitetura">
-    <div class="container">
-      <h2 class="section-title">ARQUITETURA DO <span>FLUXO DE FUNCIONAMENTO</span></h2>
-      <p class="section-subtitle">Entenda o caminho que os dados percorrem desde a fala do médico até o preenchimento da ficha:</p>
-
-      <div class="arch-steps">
-        <div class="arch-card">
-          <span class="step-num">ETAPA 1</span>
-          <i class="fas fa-microphone"></i>
-          <h4>Captura Multimodal</h4>
-          <p>O médico fala os sintomas e prescrições. O microfone USB do TJBot capta o áudio em alta fidelidade.</p>
-        </div>
-
-        <div class="arch-card">
-          <span class="step-num">ETAPA 2</span>
-          <i class="fas fa-microchip"></i>
-          <h4>Processamento Local</h4>
-          <p>O Raspberry Pi 3 B+ processa o sinal de áudio e ativa o LED RGB indicando recepção de comandos.</p>
-        </div>
-
-        <div class="arch-card">
-          <span class="step-num">ETAPA 3</span>
-          <i class="fas fa-brain"></i>
-          <h4>Motor de I.A.</h4>
-          <p>A IA realiza o processamento de linguagem natural (NLP), convertendo a fala em JSON estruturado.</p>
-        </div>
-
-        <div class="arch-card">
-          <span class="step-num">ETAPA 4</span>
-          <i class="fas fa-database"></i>
-          <h4>Prontuário & Feedback</h4>
-          <p>A ficha do paciente é preenchida no sistema e o alto-falante/servo motor do robô confirma a ação.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="codigo-fonte">
-    <div class="container">
-      <h2 class="section-title">CÓDIGO FONTE <span>DO ROBÔ (ESTRUTURA BASE)</span></h2>
-      <p class="section-subtitle">Exemplos base dos scripts executados no Raspberry Pi e nos módulos de Inteligência Artificial:</p>
-
-      <div class="code-box">
-        <div class="code-tabs">
-          <button class="code-tab-btn active" onclick="showCode('camera')"><i class="fas fa-camera"></i> Câmera</button>
-          <button class="code-tab-btn" onclick="showCode('mic')"><i class="fas fa-microphone"></i> Microfone</button>
-          <button class="code-tab-btn" onclick="showCode('speaker')"><i class="fas fa-volume-high"></i> Alto-Falante</button>
-          <button class="code-tab-btn" onclick="showCode('raspberry')"><i class="fab fa-raspberry-pi"></i> Raspberry Pi</button>
-          <button class="code-tab-btn" onclick="showCode('ia_ficha')"><i class="fas fa-file-signature"></i> IA: Preenchimento</button>
-          <button class="code-tab-btn" onclick="showCode('ia_consulta')"><i class="fas fa-magnifying-glass"></i> IA: Consulta Fichas</button>
-        </div>
-
-        <div class="code-container">
-          <div id="code-camera">
-            <div class="code-desc"><i class="fas fa-info-circle"></i> Captura de imagem e leitura de documentos via OpenCV (camera.py)</div>
-<pre><code>import cv2
-
-def capturar_documento():
-    camera = cv2.VideoCapture(0)
-    print("[TJBot] Capturando imagem do documento...")
-    ret, frame = camera.read()
-    if ret:
-        cv2.imwrite("documento_paciente.jpg", frame)
-        print("[TJBot] Imagem salva com sucesso!")
-    camera.release()
-
-if __name__ == "__main__":
-    capturar_documento()</code></pre>
-          </div>
-
-          <div id="code-mic" style="display:none">
-            <div class="code-desc"><i class="fas fa-info-circle"></i> Captura de voz e conversão em texto (microphone.py)</div>
-<pre><code>import speech_recognition as sr
-
-def ouvir_medico():
-    recognizer = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("[TJBot] Ouvindo ditado médico...")
-        audio = recognizer.listen(source)
-        try:
-            texto = recognizer.recognize_google(audio, language="pt-BR")
-            print(f"[Médico Disse]: {texto}")
-            return texto
-        except sr.UnknownValueError:
-            print("[TJBot] Não entendi o áudio.")
-            return None</code></pre>
-          </div>
-
-          <div id="code-speaker" style="display:none">
-            <div class="code-desc"><i class="fas fa-info-circle"></i> Resposta em áudio do TJBot ao médico (speaker.py)</div>
-<pre><code>import pyttsx3
-
-def falar(resposta_texto):
-    engine = pyttsx3.init()
-    engine.setProperty('rate', 160)
-    engine.setProperty('volume', 1.0)
-    print(f"[TJBot Falando]: {resposta_texto}")
-    engine.say(resposta_texto)
-    engine.runAndWait()
-
-if __name__ == "__main__":
-    falar("Ficha médica do paciente preenchida com sucesso!")</code></pre>
-          </div>
-
-          <div id="code-raspberry" style="display:none">
-            <div class="code-desc"><i class="fas fa-info-circle"></i> Script principal no Raspberry Pi acionando servo e LED (main_raspberry.py)</div>
-<pre><code>import RPi.GPIO as GPIO
-import time
-
-SERVO_PIN = 18
-LED_RGB_RED = 22
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(SERVO_PIN, GPIO.OUT)
-GPIO.setup(LED_RGB_RED, GPIO.OUT)
-
-def acenar_braco():
-    pwm = GPIO.PWM(SERVO_PIN, 50)
-    pwm.start(7.5)
-    time.sleep(0.5)
-    pwm.ChangeDutyCycle(12.5)
-    time.sleep(0.5)
-    pwm.stop()
-
-def ligar_led_processando():
-    GPIO.output(LED_RGB_RED, GPIO.HIGH)
-
-if __name__ == "__main__":
-    ligar_led_processando()
-    acenar_braco()
-    GPIO.cleanup()</code></pre>
-          </div>
-
-          <div id="code-ia_ficha" style="display:none">
-            <div class="code-desc"><i class="fas fa-info-circle"></i> Módulo de IA para extração e preenchimento de ficha estruturada (ai_fill.py)</div>
-<pre><code>import json
-
-def processar_fala_para_ficha(transcricao_fala):
-    prompt_ia = f"""
-    Extraia os dados médicos da seguinte fala e estruture em JSON:
-    '{transcricao_fala}'
-    """
-    ficha_estruturada = {
-        "sintomas": ["Febre alta", "Dor de cabeça"],
-        "diagnostico_provavel": "Gripe Forte",
-        "medicacao_prescrita": "Paracetamol 500mg de 8/8h"
-    }
-    return json.dumps(ficha_estruturada, ensure_ascii=False, indent=2)</code></pre>
-          </div>
-
-          <div id="code-ia_consulta" style="display:none">
-            <div class="code-desc"><i class="fas fa-info-circle"></i> Módulo de busca rápida em fichas de pacientes via IA (ai_query.py)</div>
-<pre><code>def consultar_historico_paciente(cpf_paciente, pergunta_medico):
-    print(f"[IA] Buscando fichas anteriores do paciente CPF: {cpf_paciente}")
-    resumo_historico = "O paciente possui histórico de hipertensão e alergia a Penicilina."
-    return f"Resumo para o médico: {resumo_historico}"</code></pre>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="impacto">
-    <div class="container">
-      <h2 class="section-title">SIMULAÇÕES DE <span>IMPACTO NA SAÚDE</span></h2>
-      <p class="section-subtitle">Estimativa de otimização de tempo e redução da sobrecarga médica na rotina hospitalar:</p>
-
-      <div class="impact-grid">
-        <div class="impact-card">
-          <i class="fas fa-stopwatch" style="font-size:2rem; color:var(--purple-neon)"></i>
-          <div class="impact-value">-70%</div>
-          <p>Do tempo gasto pelo médico preenchendo fichas manuais</p>
-        </div>
-
-        <div class="impact-card">
-          <i class="fas fa-user-plus" style="font-size:2rem; color:var(--purple-neon)"></i>
-          <div class="impact-value">+35%</div>
-          <p>Aumento na capacidade diária de realização de exames físicos</p>
-        </div>
-
-        <div class="impact-card">
-          <i class="fas fa-heart-pulse" style="font-size:2rem; color:var(--purple-neon)"></i>
-          <div class="impact-value">100%</div>
-          <p>Foco mantido no paciente durante a escuta clínica</p>
-        </div>
-      </div>
-
-      <div class="calc-box">
-        <h3><i class="fas fa-calculator"></i> Calculadora de Economia de Tempo Médico</h3>
-        <p>Arraste a barra para selecionar quantas consultas você realiza por dia:</p>
-        
-        <div class="slider-container">
-          <input type="range" id="consultas-range" min="5" max="50" value="20" oninput="calcularEconomia()">
-          <p style="margin-top:10px; font-weight:bold; color:var(--text-white)"><span id="val-consultas">20</span> consultas/dia</p>
-        </div>
-
-        <div class="calc-result" id="resultado-economia">
-          Economia estimada: <strong>1.6 horas/dia</strong> salvas de burocracia!
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="componentes">
-    <div class="container">
-      <h2 class="section-title">LISTA DE COMPONENTES <span>E CUSTOS</span></h2>
-      <p class="section-subtitle">Tabela de hardware utilizado na construção do assistente TJBot:</p>
-
-      <div class="comp-table-wrapper">
-        <table class="comp-table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Componente</th>
-              <th>Qtd</th>
-              <th>Preço Estimado</th>
-              <th>Onde Comprar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Raspberry Pi 3 Model B+</td>
-              <td>1x</td>
-              <td>R$ 380,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Câmera USB / Módulo Câmera</td>
-              <td>1x</td>
-              <td>R$ 60,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>LED Ânodo Comum (RGB)</td>
-              <td>1x</td>
-              <td>R$ 3,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Cartão MicroSD 16GB Classe 10</td>
-              <td>1x</td>
-              <td>R$ 35,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Molde de Robô Modelo TJBot (3D / MDF / Papelão)</td>
-              <td>1x</td>
-              <td>R$ 45,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Servo Motor SG90 9g</td>
-              <td>1x</td>
-              <td>R$ 15,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>Alto-falante P2/USB</td>
-              <td>1x</td>
-              <td>R$ 30,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>Microfone USB Mini</td>
-              <td>1x</td>
-              <td>R$ 35,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>Cabo HDMI</td>
-              <td>1x</td>
-              <td>R$ 20,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>Adaptador VGA para HDMI (Se necessário)</td>
-              <td>1x</td>
-              <td>R$ 25,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>Pen drive 32GB (Opcional)</td>
-              <td>1x</td>
-              <td>R$ 30,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>Teclado USB</td>
-              <td>1x</td>
-              <td>R$ 35,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-            <tr>
-              <td>13</td>
-              <td>Mouse USB (Opcional)</td>
-              <td>1x</td>
-              <td>R$ 20,00</td>
-              <td><a href="https://www.mercadolivre.com.br" target="_blank" class="comp-link"><i class="fas fa-cart-shopping"></i> Comprar</a></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="total-box">CUSTO TOTAL ESTIMADO: R$ 728,00</div>
       </div>
     </div>
   </section>
@@ -576,7 +185,7 @@ def processar_fala_para_ficha(transcricao_fala):
           </div>
           <div class="form-group full-width">
             <label>Qual nova função você gostaria que o TJBot executasse?</label>
-            <textarea id="descricao_funcionalidade" rows="4" placeholder="Ex: Lembrete de horários de medicação, organização de documentos..." required></textarea>
+            <textarea id="descricao_funcionalidade" rows="4" placeholder="Ex: Lembrete de horários de medicação, organização de documentos, checagem de pulseira de leito..." required></textarea>
           </div>
           <div class="form-group full-width">
             <button type="submit" class="submit-btn" id="btn-enviar"><i class="fas fa-paper-plane"></i> ENVIAR SUGESTÃO DE FUNCIONALIDADE</button>
@@ -585,6 +194,91 @@ def processar_fala_para_ficha(transcricao_fala):
       </div>
     </div>
   </section>
+
+<section id="kaizen">
+  <div class="container">
+    <h2 class="section-title">O QUE É <span>KAIZEN?</span></h2>
+    <p class="section-subtitle">Kaizen (改善) é um termo japonês formado por <strong>kai</strong> (mudança) e <strong>zen</strong> (melhor): "mudar para melhor", ou melhoria contínua.</p>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-seedling"></i></div><h3>A Filosofia</h3><p>Nasceu na indústria japonesa, no pós-guerra, e defende que pequenas melhorias constantes, feitas todos os dias, geram grandes resultados com o tempo.</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-bullseye"></i></div><h3>Por que esse nome?</h3><p>O robô não tenta substituir o médico: ele melhora um processo pequeno, o preenchimento de fichas, e devolve tempo ao atendimento. É um passo de cada vez, sempre evoluindo.</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-rotate"></i></div><h3>Melhoria Contínua</h3><p>O projeto segue o ciclo kaizen: testar, medir, ajustar e repetir. Cada nova função sugerida no formulário alimenta a próxima versão.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="arquitetura">
+  <div class="container">
+    <h2 class="section-title">ARQUITETURA <span>DO FLUXO</span></h2>
+    <p class="section-subtitle">Do momento em que o médico fala até a ficha ficar pronta:</p>
+    <div class="flow">
+      <div class="flow-step"><i class="fas fa-microphone"></i>Microfone USB<small>Captura a fala da consulta</small></div>
+      <div class="flow-step"><i class="fas fa-language"></i>Fala → Texto<small>Transcrição (STT)</small></div>
+      <div class="flow-step"><i class="fas fa-brain"></i>IA<small>Extrai nome, sintomas, medicação</small></div>
+      <div class="flow-step"><i class="fas fa-file-pen"></i>Ficha<small>Campos preenchidos e salvos</small></div>
+      <div class="flow-step"><i class="fas fa-user-check"></i>Revisão<small>O médico confirma ou corrige</small></div>
+      <div class="flow-step"><i class="fas fa-volume-high"></i>Alto-falante + LED<small>Feedback ao médico</small></div>
+    </div>
+    <p class="note">A câmera pode ser usada para identificar o paciente na consulta de fichas. A revisão do médico é sempre obrigatória antes de salvar.</p>
+  </div>
+</section>
+
+<section id="codigo">
+  <div class="container">
+    <h2 class="section-title">CÓDIGO-FONTE <span>DO ROBÔ (BASE)</span></h2>
+    <p class="section-subtitle">Versão simplificada, só para mostrar como cada parte funciona. O código completo não é público.</p>
+    <div class="simulator-box">
+      <div class="mode-tabs" id="code-tabs"></div>
+      <div class="code-box"><pre id="code-view"></pre></div>
+    </div>
+  </div>
+</section>
+
+<section id="impacto">
+  <div class="container">
+    <h2 class="section-title">SIMULAÇÃO <span>DE IMPACTO</span></h2>
+    <p class="section-subtitle">Mexa nos controles e veja quanto tempo o Kaizen poderia devolver ao atendimento.</p>
+    <div class="simulator-box">
+      <div class="range-row"><label>Pacientes por dia <span id="v-pac">20</span></label><input type="range" id="r-pac" min="5" max="60" value="20"></div>
+      <div class="range-row"><label>Minutos por ficha (manual) <span id="v-man">8</span></label><input type="range" id="r-man" min="2" max="20" value="8"></div>
+      <div class="range-row"><label>Minutos por ficha (com o Kaizen) <span id="v-rob">2</span></label><input type="range" id="r-rob" min="0" max="10" value="2"></div>
+      <div class="range-row"><label>Dias de atendimento por mês <span id="v-dia">22</span></label><input type="range" id="r-dia" min="5" max="30" value="22"></div>
+      <div class="impact-results">
+        <div class="impact-card"><b id="o-dia">0</b>min poupados por dia</div>
+        <div class="impact-card"><b id="o-mes">0</b>horas poupadas por mês</div>
+        <div class="impact-card"><b id="o-pac">0</b>consultas extras possíveis/mês (15 min)</div>
+        <div class="impact-card"><b id="o-pct">0%</b>redução do tempo de burocracia</div>
+      </div>
+      <p class="note">Simulação ilustrativa com valores ajustáveis. Não representa resultados medidos em clínicas reais.</p>
+    </div>
+  </div>
+</section>
+
+<section id="componentes">
+  <div class="container">
+    <h2 class="section-title">COMPONENTES <span>DO ROBÔ</span></h2>
+    <p class="section-subtitle">Lista de materiais com preço estimado e link de busca para comprar.</p>
+    <div class="table-wrap">
+      <table class="comp">
+        <thead><tr><th>Qtd</th><th>Item</th><th>Preço estimado</th><th>Comprar</th></tr></thead>
+        <tbody id="comp-body"></tbody>
+        <tfoot><tr><td colspan="2">Total estimado (sem opcionais)</td><td id="comp-total" colspan="2"></td></tr></tfoot>
+      </table>
+    </div>
+    <p class="note">Preços são estimativas e variam por loja e data. Confira no link antes de comprar.</p>
+  </div>
+</section>
+
+<section id="documentos">
+  <div class="container">
+    <h2 class="section-title">DOCUMENTAÇÃO <span>E DIÁRIO DE BORDO</span></h2>
+    <p class="section-subtitle">Acompanhe todo o desenvolvimento do projeto.</p>
+    <div class="doc-links">
+      <a id="link-doc" target="_blank" rel="noopener" class="cta-button"><i class="fas fa-book"></i> Documentação</a>
+      <a id="link-diario" target="_blank" rel="noopener" class="cta-button"><i class="fas fa-book-open"></i> Diário de Bordo</a>
+    </div>
+  </div>
+</section>
 
   <section id="contato">
     <div class="container">
@@ -605,25 +299,25 @@ def processar_fala_para_ficha(transcricao_fala):
 <script>
 const modeData = {
   problema: {
-    title: "O Problema Burocrático",
+    title: "O Problema",
     icon: "fas fa-triangle-exclamation",
-    description: "Médicos gastam cerca de 5 minutos por paciente apenas preenchendo fichas no computador, reduzindo o tempo de exame físico.",
-    benefits: ["Preencher fichas é uma tarefa exaustiva.", "Atenção dividida entre a tela e o paciente.", "Aumento do risco de fadiga clínica."],
-    spec: { badge: "ANTES DO KAIZEN", iconClass: "fas fa-file-lines", status: "Médico sobrecarregado", sensors: "Papel / Digitação", action: "Digitação manual de prontuário" }
+    description: "Grande parte das pessoas acha chato realizar documentos e preencher fichas, e na área da saúde não é diferente. Essa burocracia toma a atenção que o médico poderia dar ao paciente.",
+    benefits: ["Preencher fichas é uma tarefa cansativa e repetitiva.", "A parte burocrática desvia o foco do atendimento.", "O médico precisa de um apoio para essa etapa."],
+    spec: { badge: "ANTES DO KAIZEN", img: "imagens/medico cheio.jfif", iconClass: "fas fa-file-lines", status: "Médico sobrecarregado", sensors: "Papel / Digitação manual", action: "Preenchimento feito pelo médico" }
   },
   ficha: {
-    title: "Preenchimento da Ficha pela IA",
+    title: "Preenchimento da Ficha",
     icon: "fas fa-pen-to-square",
-    description: "O TJBot atua como assistente: escuta o diálogo da consulta e preenche a ficha do paciente em tempo real.",
-    benefits: ["Ficha preenchida automaticamente.", "Sem necessidade de digitar durante a consulta.", "Registros organizados instantaneamente."],
-    spec: { badge: "MODO: ASSISTENTE", iconClass: "fas fa-file-signature", status: "TJBot Ativo", sensors: "Microfone / NLP", action: "Estruturação de ficha clínica" }
+    description: "O TJBot atua como um mini assistente e realiza a parte burocrática: preenche a ficha do paciente enquanto o médico conduz a consulta.",
+    benefits: ["Ficha do paciente preenchida pelo robô.", "Menos papelada e menos digitação para o médico.", "Processo mais rápido e organizado."],
+    spec: { badge: "MODO: ASSISTENTE", img: "imagens/tjbot-ficha.png", iconClass: "fas fa-file-signature", status: "TJBot ativo", sensors: "Microfone / Processamento", action: "Preenchimento da ficha do paciente" }
   },
   foco: {
-    title: "Foco Total no Atendimento Humanizado",
+    title: "Foco no Paciente",
     icon: "fas fa-stethoscope",
-    description: "Com as fichas resolvidas pela IA do robô, o profissional foca em exames clínicos minuciosos e aplicação correta de medicamentos.",
-    benefits: ["Atenção visual e escuta 100% no paciente.", "Consultas mais tranquilas e humanas.", "Redução severa de falhas de comunicação."],
-    spec: { badge: "COM O KAIZEN", iconClass: "fas fa-user-doctor", status: "Médico focado", sensors: "IA no Background", action: "Exame clínico e ausculta" }
+    description: "Com a burocracia a cargo do Kaizen, o médico passa a ter um foco maior em realizar os exames no paciente e aplicar os possíveis medicamentos.",
+    benefits: ["Mais atenção durante a consulta.", "Mais tempo para exames no paciente.", "Aplicação de medicamentos com mais tranquilidade."],
+    spec: { badge: "COM O KAIZEN", img: "imagens/tjbot-foco.png", iconClass: "fas fa-user-doctor", status: "Médico focado no paciente", sensors: "TJBot cuidando das fichas", action: "Exames e medicação" }
   }
 };
 
@@ -633,14 +327,15 @@ function updateSimDisplay(key) {
   if (!display) return;
   display.innerHTML = `
     <div class="sim-info">
-      <h3><i class="\({data.icon}"></i>\){data.title}</h3>
+      <h3><i class="${data.icon}"></i> ${data.title}</h3>
       <p>${data.description}</p>
       <ul class="sim-benefits">
-        \({data.benefits.map(b => `<li><i class="fas fa-check"></i> <span>\){b}</span></li>`).join('')}
+        ${data.benefits.map(b => `<li><i class="fas fa-check"></i> <span>${b}</span></li>`).join('')}
       </ul>
     </div>
     <div class="robot-card-graphic">
-      <i class="${data.spec.iconClass} robot-avatar"></i>
+      <img src="${data.spec.img}" alt="TJBot" class="tjbot-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <i class="${data.spec.iconClass} robot-avatar" style="display:none"></i>
       <span class="robot-status-pill">${data.spec.badge}</span>
       <div class="robot-telemetry">
         <div><span>STATUS:</span> <span class="val">${data.spec.status}</span></div>
@@ -660,27 +355,6 @@ modeButtons.forEach(btn => {
 });
 updateSimDisplay('problema');
 
-function showCode(type) {
-  const codeIds = ['camera', 'mic', 'speaker', 'raspberry', 'ia_ficha', 'ia_consulta'];
-  codeIds.forEach(id => {
-    const el = document.getElementById('code-' + id);
-    if (el) el.style.display = 'none';
-  });
-  const selected = document.getElementById('code-' + type);
-  if (selected) selected.style.display = 'block';
-
-  const tabBtns = document.querySelectorAll('.code-tab-btn');
-  tabBtns.forEach(btn => btn.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-}
-
-function calcularEconomia() {
-  const val = document.getElementById('consultas-range').value;
-  document.getElementById('val-consultas').innerText = val;
-  const horasEconomizadas = ((val * 5) / 60).toFixed(1);
-  document.getElementById('resultado-economia').innerHTML = `Economia estimada: <strong>${horasEconomizadas} horas/dia</strong> salvas de burocracia!`;
-}
-
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('header nav');
 if (menuToggle && nav) {
@@ -689,13 +363,12 @@ if (menuToggle && nav) {
     menuToggle.textContent = nav.classList.contains('active') ? '✕' : '☰';
   });
 }
-
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
-      window.scrollTo({ top: target.offsetTop - 90, behavior: 'smooth' });
+      window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
       if (nav && nav.classList.contains('active')) {
         nav.classList.remove('active');
         if (menuToggle) menuToggle.textContent = '☰';
@@ -705,18 +378,119 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 </script>
 
+<script>
+/* ===== 1) COLOQUE AQUI SEUS LINKS ===== */
+const LINK_DOCUMENTACAO = "COLE_AQUI_O_LINK_DA_DOCUMENTACAO";
+const LINK_DIARIO_BORDO = "COLE_AQUI_O_LINK_DO_DIARIO_DE_BORDO";
+document.getElementById('link-doc').href = LINK_DOCUMENTACAO;
+document.getElementById('link-diario').href = LINK_DIARIO_BORDO;
+
+/* ===== 2) COMPONENTES ===== */
+const ml = q => "https://lista.mercadolivre.com.br/" + q;
+const componentes = [
+  [1,"Raspberry Pi 3 B+",450,ml("raspberry-pi-3-b-plus"),0],
+  [1,"Câmera (Pi Camera ou USB)",60,ml("camera-raspberry-pi"),0],
+  [1,"LED RGB ânodo comum",3,ml("led-rgb-anodo-comum"),0],
+  [1,"MicroSD 16GB",30,ml("microsd-16gb"),0],
+  [1,"Molde de robô modelo TJBot",50,ml("tjbot-molde"),0],
+  [1,"Servo motor (SG90)",20,ml("servo-motor-sg90"),0],
+  [1,"Alto-falante",25,ml("alto-falante-p2-pequeno"),0],
+  [1,"Microfone USB",40,ml("microfone-usb"),0],
+  [1,"Cabo HDMI",25,ml("cabo-hdmi"),0],
+  [1,"Adaptador VGA para HDMI (só se necessário)",35,ml("adaptador-vga-hdmi"),1],
+  [1,"Pen drive 32GB (tamanho opcional)",40,ml("pen-drive-32gb"),1],
+  [1,"Teclado",40,ml("teclado-usb"),0],
+  [1,"Mouse (opcional)",25,ml("mouse-usb"),1]
+];
+let total = 0;
+document.getElementById('comp-body').innerHTML = componentes.map(c => {
+  if(!c[4]) total += c[2];
+  return `<tr><td>${c[0]}</td><td>${c[1]}${c[4]?' <small>(opcional)</small>':''}</td><td>R$ ${c[2].toFixed(2).replace('.',',')}</td><td><a href="${c[3]}" target="_blank" rel="noopener">Ver loja</a></td></tr>`;
+}).join('');
+document.getElementById('comp-total').textContent = "R$ " + total.toFixed(2).replace('.',',');
+
+/* ===== 3) CÓDIGO BASE ===== */
+const codigos = {
+ "Câmera": `# camera.py — captura uma foto
+from picamera2 import Picamera2
+cam = Picamera2()
+cam.start()
+cam.capture_file("paciente.jpg")`,
+ "Microfone": `# microfone.py — grava 5s e transcreve
+import sounddevice as sd, soundfile as sf
+import speech_recognition as sr
+audio = sd.rec(5*16000, samplerate=16000, channels=1)
+sd.wait(); sf.write("fala.wav", audio, 16000)
+r = sr.Recognizer()
+with sr.AudioFile("fala.wav") as f:
+    texto = r.recognize_google(r.record(f), language="pt-BR")`,
+ "Alto-falante": `# voz.py — o robô fala
+import pyttsx3
+voz = pyttsx3.init()
+voz.setProperty("voice", "portuguese")
+voz.say("Ficha preenchida. Confirme, doutor.")
+voz.runAndWait()`,
+ "Raspberry": `# main.py — laço principal + LED e servo
+from gpiozero import RGBLED, AngularServo
+led = RGBLED(red=17, green=27, blue=22, active_high=False) # anodo comum
+servo = AngularServo(18, min_angle=0, max_angle=180)
+led.color = (0, 1, 0)   # verde = ouvindo
+servo.angle = 90        # acena
+# ouvir() -> transcrever() -> preencher_ficha() -> confirmar()`,
+ "IA: preencher": `# ia_ficha.py — extrai campos da fala
+CAMPOS = ["nome","idade","sintomas","medicacao"]
+def preencher_ficha(texto):
+    prompt = f"Extraia {CAMPOS} em JSON do texto: {texto}"
+    resposta = chamar_modelo_ia(prompt)   # sua API de IA
+    return json.loads(resposta)
+# o médico SEMPRE revisa antes de salvar`,
+ "IA: consultar": `# consulta.py — busca ficha salva
+def consultar_ficha(nome):
+    docs = db.collection("fichas").where("nome","==",nome).get()
+    return [d.to_dict() for d in docs]
+# o robô lê o resumo em voz alta pelo alto-falante`
+};
+const tabs = document.getElementById('code-tabs');
+const view = document.getElementById('code-view');
+Object.keys(codigos).forEach((nome,i) => {
+  const b = document.createElement('button');
+  b.className = 'mode-btn' + (i===0?' active':'');
+  b.textContent = nome;
+  b.onclick = () => {
+    tabs.querySelectorAll('.mode-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active'); view.textContent = codigos[nome];
+  };
+  tabs.appendChild(b);
+});
+view.textContent = codigos["Câmera"];
+
+/* ===== 4) SIMULADOR DE IMPACTO ===== */
+function calcImpacto(){
+  const g = id => +document.getElementById(id).value;
+  const pac=g('r-pac'), man=g('r-man'), rob=g('r-rob'), dia=g('r-dia');
+  ['pac','man','rob','dia'].forEach(k => document.getElementById('v-'+k).textContent = g('r-'+k));
+  const poupaDia = Math.max(0, (man-rob)*pac);
+  document.getElementById('o-dia').textContent = Math.round(poupaDia);
+  document.getElementById('o-mes').textContent = (poupaDia*dia/60).toFixed(1);
+  document.getElementById('o-pac').textContent = Math.floor(poupaDia*dia/15);
+  document.getElementById('o-pct').textContent = (man>0 ? Math.max(0,Math.round((man-rob)/man*100)) : 0) + '%';
+}
+['r-pac','r-man','r-rob','r-dia'].forEach(id => document.getElementById(id).addEventListener('input', calcImpacto));
+calcImpacto();
+</script>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
- const firebaseConfig = {
-  apiKey: "AIzaSyCwVMmqEqdxSySOYvlY89UKkSclgBui4zc",
-  authDomain: "projeto--kaizen.firebaseapp.com",
-  projectId: "projeto--kaizen",
-  storageBucket: "projeto--kaizen.firebasestorage.app",
-  messagingSenderId: "279073140398",
-  appId: "1:279073140398:web:a8c62f990a861e5d1dc73f",
-  measurementId: "G-0N3MGFZEXM"
+  const firebaseConfig = {
+    apiKey: "AIzaSyCwVMmqEqdxSySOYvlY89UKkSclgBui4zc",
+    authDomain: "projeto--kaizen.firebaseapp.com",
+    projectId: "projeto--kaizen",
+    storageBucket: "projeto--kaizen.firebasestorage.app",
+    messagingSenderId: "279073140398",
+    appId: "1:279073140398:web:a8c62f990a861e5d1dc73f",
+    measurementId: "G-0N3MGFZEXM"
   };
 
   const app = initializeApp(firebaseConfig);
@@ -750,6 +524,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
   }
 </script>
-
 </body>
 </html>
